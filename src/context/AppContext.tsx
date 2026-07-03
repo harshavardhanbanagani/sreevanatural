@@ -747,9 +747,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     >
       {!loading && children}
 
-      {/* Global Glassmorphic Toast Notification */}
+      {/* Global Premium Responsive Toast Notification */}
       {toast && (
-        <div className="fixed bottom-6 right-6 z-[99999] animate-reveal-up max-w-sm w-full bg-[#FDFBF7]/95 border border-[#2A211C]/15 rounded-xl shadow-2xl p-4 flex items-start gap-3 backdrop-blur-md">
+        <div className="fixed bottom-4 left-4 right-4 sm:bottom-6 sm:right-6 sm:left-auto z-[99999] animate-reveal-up max-w-sm w-auto sm:w-80 bg-brand-dark/95 border border-brand-bg/10 rounded-xl shadow-2xl p-4 pl-5 flex items-start gap-3 backdrop-blur-md overflow-hidden text-brand-bg">
+          {/* Left indicator bar */}
+          <div className={`absolute left-0 top-0 bottom-0 w-1 ${
+            toast.type === "success" ? "bg-brand-green" : toast.type === "error" ? "bg-brand-orange" : "bg-brand-orange/40"
+          }`} />
+
           {toast.type === "success" && (
             <CheckCircle2 className="w-5 h-5 text-brand-green flex-shrink-0 mt-0.5" />
           )}
@@ -757,24 +762,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             <AlertCircle className="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" />
           )}
           {toast.type === "info" && (
-            <Info className="w-5 h-5 text-brand-dark/60 flex-shrink-0 mt-0.5" />
+            <Info className="w-5 h-5 text-brand-orange/60 flex-shrink-0 mt-0.5" />
           )}
-          <div className="flex-grow">
-            <p className="text-[10px] font-bold text-brand-dark uppercase tracking-widest mb-0.5">
-              {toast.type === "success" ? "Success" : toast.type === "error" ? "Notification" : "Notice"}
+
+          <div className="flex-grow pr-1">
+            <p className="text-[10px] font-bold text-brand-orange uppercase tracking-[0.2em] mb-1">
+              {toast.type === "success" ? "Success" : toast.type === "error" ? "Warning" : "Notice"}
             </p>
-            <p className="text-xs font-light text-[#2A211C]/85 leading-relaxed">
+            <p className="text-xs font-light text-brand-bg/90 leading-relaxed">
               {toast.message}
             </p>
           </div>
+
           <button 
             onClick={() => setToast(null)}
-            className="text-brand-dark/30 hover:text-brand-dark transition-colors"
+            className="text-brand-bg/30 hover:text-brand-bg transition-colors cursor-pointer p-0.5"
+            aria-label="Close notification"
           >
             <X className="w-3.5 h-3.5" />
           </button>
         </div>
       )}
+
     </AppContext.Provider>
   );
 };
