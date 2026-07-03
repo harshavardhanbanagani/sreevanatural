@@ -19,8 +19,22 @@ export default function AdminProductsPage() {
   const [benefitsInput, setBenefitsInput] = useState(""); // comma separated
   const [ingredientsInput, setIngredientsInput] = useState(""); // comma separated
   const [category, setCategory] = useState("Oils");
-  const [imagePreset, setImagePreset] = useState("/honey.jpg");
+  const [imageString, setImageString] = useState("/honey.jpg");
   const [stock, setStock] = useState(10);
+
+  // File Upload Handler
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === "string") {
+          setImageString(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Opens form for fresh creation
   const handleOpenCreate = () => {
@@ -31,7 +45,7 @@ export default function AdminProductsPage() {
     setBenefitsInput("100% natural extraction, Zero chemicals added");
     setIngredientsInput("Cold Pressed Raw Seeds");
     setCategory("Oils");
-    setImagePreset("/groundnut_oil.jpg");
+    setImageString("/groundnut_oil.jpg");
     setStock(20);
     setShowForm(true);
   };
@@ -45,7 +59,7 @@ export default function AdminProductsPage() {
     setBenefitsInput(p.benefits.join(", "));
     setIngredientsInput(p.ingredients.join(", "));
     setCategory(p.category);
-    setImagePreset(p.image);
+    setImageString(p.image);
     setStock(p.stock);
     setShowForm(true);
   };
@@ -64,7 +78,7 @@ export default function AdminProductsPage() {
       benefits,
       ingredients,
       category,
-      image: imagePreset,
+      image: imageString,
       stock: Number(stock)
     };
 
@@ -76,6 +90,7 @@ export default function AdminProductsPage() {
 
     setShowForm(false);
   };
+
 
   return (
     <div className="space-y-8">
@@ -264,20 +279,31 @@ export default function AdminProductsPage() {
                   />
                 </div>
 
-                {/* Image presets */}
+                {/* Image Upload Option */}
                 <div className="space-y-1">
-                  <label className="text-xs uppercase tracking-wider font-semibold text-brand-dark/85">Image Photo Preset</label>
-                  <select
-                    value={imagePreset}
-                    onChange={(e) => setImagePreset(e.target.value)}
-                    className="w-full px-3 py-2 text-sm bg-brand-bg border border-brand-dark/10 rounded-lg focus:outline-none focus:border-brand-green font-semibold text-brand-orange"
-                  >
-                    <option value="/groundnut_oil.jpg">Groundnut Oil Photo</option>
-                    <option value="/coconut_oil.jpg">Virgin Coconut Oil Photo</option>
-                    <option value="/ghee.jpg">Bilona Ghee Photo</option>
-                    <option value="/honey.jpg">Wild Forest Honey Photo</option>
-                  </select>
+                  <label className="text-xs uppercase tracking-wider font-semibold text-brand-dark/85 block">Product Image</label>
+                  <div className="flex items-center gap-3 mt-1">
+                    {imageString && (
+                      <div className="relative w-9 h-9 border border-brand-dark/10 rounded-lg overflow-hidden flex-shrink-0 bg-white">
+                        <img
+                          src={imageString}
+                          alt="Preview"
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    )}
+                    <label className="flex-grow flex items-center justify-center px-3 py-2 border border-dashed border-brand-green/20 hover:border-brand-green bg-brand-green/5 hover:bg-brand-green/10 text-brand-green rounded-lg cursor-pointer transition-colors text-xs font-bold uppercase tracking-wider">
+                      <span>Upload File</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
                 </div>
+
               </div>
 
               {/* Description */}
