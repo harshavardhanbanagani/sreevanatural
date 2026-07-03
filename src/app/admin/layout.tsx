@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useApp } from "@/context/AppContext";
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -17,6 +18,25 @@ import {
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { currentUser } = useApp();
+
+  useEffect(() => {
+    if (!currentUser || currentUser.role !== "admin") {
+      router.push("/auth");
+    }
+  }, [currentUser, router]);
+
+  if (!currentUser || currentUser.role !== "admin") {
+    return (
+      <div className="min-h-screen bg-brand-bg flex items-center justify-center">
+        <p className="text-sm font-semibold uppercase tracking-widest text-brand-green animate-pulse">
+          Verifying Admin Credentials...
+        </p>
+      </div>
+    );
+  }
+
 
   const menuItems = [
     { name: "Overview", href: "/admin", icon: LayoutDashboard },

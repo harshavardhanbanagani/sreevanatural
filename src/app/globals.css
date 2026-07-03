@@ -96,3 +96,50 @@ html {
 .font-serif-luxury {
   font-family: var(--font-serif), Georgia, serif;
 }
+
+/* Professional Print Stylesheet */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-invoice-container, .print-invoice-container * {
+    visibility: visible !important;
+  }
+  .print-invoice-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: white !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .print-invoice-container select,
+  .print-invoice-container input,
+  .print-invoice-container button,
+  .print-invoice-container .print-hide {
+    display: none !important;
+  }
+  .print-invoice-container div {
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: #d1d5db !important;
+  }
+  .print-invoice-container span,
+  .print-invoice-container p,
+  .print-invoice-container h1,
+  .print-invoice-container h2,
+  .print-invoice-container h3,
+  .print-invoice-container h4,
+  .print-invoice-container h5,
+  .print-invoice-container h6,
+  .print-invoice-container td,
+  .print-invoice-container th {
+    color: black !important;
+  }
+}
+

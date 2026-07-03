@@ -110,7 +110,7 @@ export default function AdminOrdersPage() {
       {/* FULL INVOICE VIEW MODAL */}
       {selectedOrder && (
         <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-brand-dark/50 backdrop-blur-sm p-4 animate-reveal-up print:absolute print:inset-0 print:bg-white print:p-0">
-          <div className="bg-brand-bg rounded-2xl max-w-2xl w-full border border-brand-dark/10 overflow-hidden shadow-2xl relative max-h-[90vh] overflow-y-auto print:border-none print:shadow-none print:max-h-none print:overflow-visible">
+          <div className="bg-brand-bg rounded-2xl max-w-2xl w-full border border-brand-dark/10 overflow-hidden shadow-2xl relative max-h-[90vh] overflow-y-auto print:border-none print:shadow-none print:max-h-none print:overflow-visible print-invoice-container">
             
             {/* Close (Screen only) */}
             <button

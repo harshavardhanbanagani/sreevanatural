@@ -76,6 +76,18 @@ export interface Order {
   paymentMethod: string;
 }
 
+export interface UserAccount {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city?: string;
+  postalCode?: string;
+  password?: string;
+  role: "customer" | "admin";
+}
+
 export interface StoreSettings {
   storeName: string;
   tagline: string;
@@ -96,6 +108,12 @@ interface AppContextType {
   cart: { productId: string; quantity: number }[];
   wishlist: string[];
   activeCoupon: Coupon | null;
+  
+  // Auth state
+  currentUser: UserAccount | null;
+  users: UserAccount[];
+  isAdmin: boolean;
+
   
   // Actions
   addProduct: (product: Omit<Product, "id" | "rating" | "reviewsCount">) => void;
@@ -135,9 +153,16 @@ interface AppContextType {
   
   updateSettings: (settings: Partial<StoreSettings>) => void;
   resetAllData: () => void;
+
+  // Auth actions
+  registerUser: (userData: Omit<UserAccount, "id" | "role">) => { success: boolean; message: string };
+  loginUser: (email: string, password: string) => { success: boolean; message: string };
+  logoutUser: () => void;
+  updateUserProfile: (profileData: Partial<UserAccount>) => { success: boolean; message: string };
   
   toast: ToastInfo | null;
   triggerToast: (message: string, type?: "success" | "info" | "error") => void;
+
 }
 
 // Initial Data Seeds
@@ -334,6 +359,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [cart, setCart] = useState<{ productId: string; quantity: number }[]>([]);
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [activeCoupon, setActiveCoupon] = useState<Coupon | null>(null);
+  
+  // Auth state
+  const [users, setUsers] = useState<UserAccount[]>([]);
+  const [currentUser, setCurrentUser] = useState<UserAccount | null>(null);
+  const isAdmin = currentUser?.role === "admin";
+
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<ToastInfo | null>(null);
 
@@ -360,6 +391,31 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const storedSettings = localStorage.getItem("sreeva_settings");
       const storedCart = localStorage.getItem("sreeva_cart");
       const storedWishlist = localStorage.getItem("sreeva_wishlist");
+      const storedUsers = localStorage.getItem("sreeva_users");
+      const storedCurrentUser = localStorage.getItem("sreeva_current_user");
+
+      const defaultUsers: UserAccount[] = [
+        {
+          id: "usr-admin",
+          name: "Sreeva Administrator",
+          email: "admin@sreevanaturals.com",
+          phone: "9000190001",
+          address: "Sreeva Organic Farms, India",
+          role: "admin",
+          password: "admin123"
+        },
+        {
+          id: "usr-cust",
+          name: "Hari Prasad",
+          email: "customer@test.com",
+          phone: "9876543210",
+          address: "12, MG Road",
+          city: "Bangalore",
+          postalCode: "560001",
+          role: "customer",
+          password: "customer123"
+        }
+      ];
 
       setProducts(storedProducts ? JSON.parse(storedProducts) : seedProducts);
       setReviews(storedReviews ? JSON.parse(storedReviews) : seedReviews);
@@ -368,6 +424,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setSettings(storedSettings ? JSON.parse(storedSettings) : initialSettings);
       setCart(storedCart ? JSON.parse(storedCart) : []);
       setWishlist(storedWishlist ? JSON.parse(storedWishlist) : []);
+      setUsers(storedUsers ? JSON.parse(storedUsers) : defaultUsers);
+      setCurrentUser(storedCurrentUser ? JSON.parse(storedCurrentUser) : null);
+
       setLoading(false);
     }
   }, []);
@@ -707,6 +766,75 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     triggerToast("Sandbox database reset to defaults.", "info");
   };
 
+  // Auth Functions implementation
+  const registerUser = (userData: Omit<UserAccount, "id" | "role">) => {
+    const emailLower = userData.email.toLowerCase().trim();
+    const exists = users.some((u) => u.email.toLowerCase() === emailLower);
+    if (exists) {
+      triggerToast("An account with this email already exists.", "error");
+      return { success: false, message: "Email already registered" };
+    }
+
+    const newUser: UserAccount = {
+      ...userData,
+      id: `usr-${Date.now()}`,
+      role: "customer"
+    };
+
+    const updated = [...users, newUser];
+    setUsers(updated);
+    saveToLocal("sreeva_users", updated);
+    triggerToast("Registration successful! You can now log in.", "success");
+    return { success: true, message: "Registration successful" };
+  };
+
+  const loginUser = (email: string, password: string) => {
+    const emailLower = email.toLowerCase().trim();
+    const user = users.find((u) => u.email.toLowerCase() === emailLower);
+    if (!user) {
+      triggerToast("No account found with this email.", "error");
+      return { success: false, message: "Account not found" };
+    }
+
+    if (user.password !== password) {
+      triggerToast("Incorrect password.", "error");
+      return { success: false, message: "Invalid credentials" };
+    }
+
+    setCurrentUser(user);
+    saveToLocal("sreeva_current_user", user);
+    triggerToast(`Welcome back, ${user.name}!`, "success");
+    return { success: true, message: "Login successful" };
+  };
+
+  const logoutUser = () => {
+    setCurrentUser(null);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("sreeva_current_user");
+    }
+    setCart([]);
+    setWishlist([]);
+    setActiveCoupon(null);
+    triggerToast("Logged out successfully.", "info");
+  };
+
+  const updateUserProfile = (profileData: Partial<UserAccount>) => {
+    if (!currentUser) {
+      return { success: false, message: "No active session" };
+    }
+
+    const updatedUser = { ...currentUser, ...profileData };
+    setCurrentUser(updatedUser);
+    saveToLocal("sreeva_current_user", updatedUser);
+
+    const updatedUsers = users.map((u) => u.id === currentUser.id ? updatedUser : u);
+    setUsers(updatedUsers);
+    saveToLocal("sreeva_users", updatedUsers);
+
+    triggerToast("Profile details updated.", "success");
+    return { success: true, message: "Profile updated" };
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -718,6 +846,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         cart,
         wishlist,
         activeCoupon,
+        currentUser,
+        users,
+        isAdmin,
+        registerUser,
+        loginUser,
+        logoutUser,
+        updateUserProfile,
         addProduct,
         updateProduct,
         deleteProduct,
@@ -745,6 +880,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         triggerToast
       }}
     >
+
       {!loading && children}
 
       {/* Global Premium Responsive Toast Notification */}

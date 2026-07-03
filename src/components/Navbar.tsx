@@ -9,7 +9,8 @@ import Image from "next/image";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { cart, wishlist } = useApp();
+  const { cart, wishlist, currentUser, logoutUser } = useApp();
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
@@ -83,7 +84,37 @@ export default function Navbar() {
                     </span>
                   )}
                 </Link>
+
+                {/* Dynamic Customer / Admin account shortcut links */}
+                {currentUser ? (
+                  currentUser.role === "admin" ? (
+                    <Link 
+                      href="/admin" 
+                      className="flex items-center gap-1.5 px-3 py-1.5 border border-brand-green/20 rounded-full text-[10px] font-bold uppercase tracking-wider text-brand-green hover:bg-brand-green hover:text-brand-bg transition-colors"
+                    >
+                      <Settings className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Admin</span>
+                    </Link>
+                  ) : (
+                    <Link 
+                      href="/account" 
+                      className="flex items-center gap-1.5 px-3 py-1.5 border border-brand-orange/20 rounded-full text-[10px] font-bold uppercase tracking-wider text-brand-orange hover:bg-brand-orange hover:text-brand-bg transition-colors"
+                    >
+                      <User className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">My Account</span>
+                    </Link>
+                  )
+                ) : (
+                  <Link 
+                    href="/auth" 
+                    title="Sign In" 
+                    className="p-2 text-brand-dark/80 hover:text-brand-orange transition-luxury"
+                  >
+                    <User className="w-5 h-5" />
+                  </Link>
+                )}
               </>
+
             ) : (
               <Link
                 href="/"

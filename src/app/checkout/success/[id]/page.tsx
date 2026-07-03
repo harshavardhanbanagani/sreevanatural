@@ -45,7 +45,8 @@ export default function OrderSuccessPage() {
 
   return (
     <div className="py-16 bg-brand-bg text-brand-dark min-h-screen print:bg-white print:py-4">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 print-invoice-container">
+
         
         {/* Print-only Invoice Header */}
         <div className="hidden print:flex justify-between items-center border-b-2 border-brand-green pb-6 mb-8">
