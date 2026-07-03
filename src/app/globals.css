@@ -99,24 +99,28 @@ html {
 
 /* Professional Print Stylesheet */
 @media print {
-  body * {
-    visibility: hidden;
-  }
-  .print-invoice-container, .print-invoice-container * {
-    visibility: visible !important;
+  body, html {
+    background: white !important;
+    color: black !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
   }
   .print-invoice-container {
-    position: absolute;
-    left: 0;
-    top: 0;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
     box-shadow: none !important;
     border: none !important;
     background: white !important;
     color: black !important;
     padding: 0 !important;
     margin: 0 !important;
+    overflow: visible !important;
   }
   .print-invoice-container select,
   .print-invoice-container input,
@@ -124,10 +128,16 @@ html {
   .print-invoice-container .print-hide {
     display: none !important;
   }
-  .print-invoice-container div {
+  .print-invoice-container div,
+  .print-invoice-container table,
+  .print-invoice-container thead,
+  .print-invoice-container tbody,
+  .print-invoice-container tr,
+  .print-invoice-container td,
+  .print-invoice-container th {
     background-color: transparent !important;
     background-image: none !important;
-    border-color: #d1d5db !important;
+    border-color: #9ca3af !important;
   }
   .print-invoice-container span,
   .print-invoice-container p,
@@ -136,10 +146,9 @@ html {
   .print-invoice-container h3,
   .print-invoice-container h4,
   .print-invoice-container h5,
-  .print-invoice-container h6,
-  .print-invoice-container td,
-  .print-invoice-container th {
+  .print-invoice-container h6 {
     color: black !important;
   }
 }
+
 

@@ -18,96 +18,100 @@ export default function AdminOrdersPage() {
   return (
     <div className="space-y-8">
       
-      {/* Title */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-serif-luxury text-3xl font-bold text-brand-green">Manage Customer Orders</h1>
-          <p className="text-xs font-semibold text-brand-dark/50 uppercase tracking-widest mt-1">Order tracking and status updates</p>
+      {/* Wrapper to completely hide list view on paper print */}
+      <div className="space-y-8 print:hidden">
+        {/* Title */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="font-serif-luxury text-3xl font-bold text-brand-green">Manage Customer Orders</h1>
+            <p className="text-xs font-semibold text-brand-dark/50 uppercase tracking-widest mt-1">Order tracking and status updates</p>
+          </div>
         </div>
-      </div>
 
-      {/* Orders List Table */}
-      <div className="bg-white border border-brand-green/10 rounded-2xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr className="border-b border-brand-dark/5 text-brand-dark/65 font-bold uppercase tracking-wider text-[10px] bg-brand-cream/40">
-                <th className="p-4">Order ID</th>
-                <th className="p-4">Customer Details</th>
-                <th className="p-4">Date</th>
-                <th className="p-4">Paid Total</th>
-                <th className="p-4">Status Dispatch</th>
-                <th className="p-4 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-brand-dark/5 font-light text-brand-dark/85">
-              {orders.map((ord) => (
-                <tr key={ord.id} className="hover:bg-brand-cream/20">
-                  
-                  {/* ID */}
-                  <td className="p-4 font-bold text-brand-green text-sm">{ord.id}</td>
-
-                  {/* Customer */}
-                  <td className="p-4 space-y-1">
-                    <p className="font-bold text-brand-green">{ord.customerName}</p>
-                    <p className="text-[10px] text-brand-dark/60 font-semibold">{ord.customerEmail}</p>
-                    <p className="text-[10px] text-brand-dark/60 font-semibold">{ord.customerPhone}</p>
-                  </td>
-
-                  {/* Date */}
-                  <td className="p-4 font-semibold text-brand-dark/70">{ord.date}</td>
-
-                  {/* Amount */}
-                  <td className="p-4 font-bold text-brand-green text-sm">₹{ord.total}</td>
-
-                  {/* Status Dropdown selector */}
-                  <td className="p-4">
-                    <select
-                      value={ord.status}
-                      onChange={(e) => updateOrderStatus(ord.id, e.target.value as Order["status"])}
-                      className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1.5 rounded-lg border focus:outline-none ${
-                        ord.status === "Delivered"
-                          ? "bg-green-50 border-green-200 text-green-700"
-                          : ord.status === "Cancelled"
-                          ? "bg-red-50 border-red-200 text-red-700"
-                          : ord.status === "Shipped"
-                          ? "bg-blue-50 border-blue-200 text-blue-700"
-                          : "bg-orange-50 border-orange-250 text-orange-700"
-                      }`}
-                    >
-                      <option value="Pending">Pending</option>
-                      <option value="Confirmed">Confirmed</option>
-                      <option value="Packed">Packed</option>
-                      <option value="Shipped">Shipped</option>
-                      <option value="Delivered">Delivered</option>
-                      <option value="Cancelled">Cancelled</option>
-                    </select>
-                  </td>
-
-                  {/* View invoice action */}
-                  <td className="p-4 text-right">
-                    <button
-                      onClick={() => setSelectedOrder(ord)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 border border-brand-green/20 text-brand-green hover:bg-brand-green hover:text-brand-bg rounded-lg font-semibold uppercase tracking-wider text-[10px] ml-auto transition-luxury"
-                    >
-                      <Eye className="w-3.5 h-3.5" />
-                      <span>View Invoice</span>
-                    </button>
-                  </td>
-
+        {/* Orders List Table */}
+        <div className="bg-white border border-brand-green/10 rounded-2xl overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-brand-dark/5 text-brand-dark/65 font-bold uppercase tracking-wider text-[10px] bg-brand-cream/40">
+                  <th className="p-4">Order ID</th>
+                  <th className="p-4">Customer Details</th>
+                  <th className="p-4">Date</th>
+                  <th className="p-4">Paid Total</th>
+                  <th className="p-4">Status Dispatch</th>
+                  <th className="p-4 text-right">Actions</th>
                 </tr>
-              ))}
-              {orders.length === 0 && (
-                <tr>
-                  <td colSpan={6} className="p-8 text-center text-brand-dark/50">No customer orders recorded.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-brand-dark/5 font-light text-brand-dark/85">
+                {orders.map((ord) => (
+                  <tr key={ord.id} className="hover:bg-brand-cream/20">
+                    
+                    {/* ID */}
+                    <td className="p-4 font-bold text-brand-green text-sm">{ord.id}</td>
+
+                    {/* Customer */}
+                    <td className="p-4 space-y-1">
+                      <p className="font-bold text-brand-green">{ord.customerName}</p>
+                      <p className="text-[10px] text-brand-dark/60 font-semibold">{ord.customerEmail}</p>
+                      <p className="text-[10px] text-brand-dark/60 font-semibold">{ord.customerPhone}</p>
+                    </td>
+
+                    {/* Date */}
+                    <td className="p-4 font-semibold text-brand-dark/70">{ord.date}</td>
+
+                    {/* Amount */}
+                    <td className="p-4 font-bold text-brand-green text-sm">₹{ord.total}</td>
+
+                    {/* Status Dropdown selector */}
+                    <td className="p-4">
+                      <select
+                        value={ord.status}
+                        onChange={(e) => updateOrderStatus(ord.id, e.target.value as Order["status"])}
+                        className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1.5 rounded-lg border focus:outline-none ${
+                          ord.status === "Delivered"
+                            ? "bg-green-50 border-green-200 text-green-700"
+                            : ord.status === "Cancelled"
+                            ? "bg-red-50 border-red-200 text-red-700"
+                            : ord.status === "Shipped"
+                            ? "bg-blue-50 border-blue-200 text-blue-700"
+                            : "bg-orange-50 border-orange-250 text-orange-700"
+                        }`}
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Packed">Packed</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Cancelled">Cancelled</option>
+                      </select>
+                    </td>
+
+                    {/* View invoice action */}
+                    <td className="p-4 text-right">
+                      <button
+                        onClick={() => setSelectedOrder(ord)}
+                        className="flex items-center gap-1.5 px-3 py-1.5 border border-brand-green/20 text-brand-green hover:bg-brand-green hover:text-brand-bg rounded-lg font-semibold uppercase tracking-wider text-[10px] ml-auto transition-luxury"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>View Invoice</span>
+                      </button>
+                    </td>
+
+                  </tr>
+                ))}
+                {orders.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="p-8 text-center text-brand-dark/50">No customer orders recorded.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       {/* FULL INVOICE VIEW MODAL */}
+
       {selectedOrder && (
         <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-brand-dark/50 backdrop-blur-sm p-4 animate-reveal-up print:absolute print:inset-0 print:bg-white print:p-0">
           <div className="bg-brand-bg rounded-2xl max-w-2xl w-full border border-brand-dark/10 overflow-hidden shadow-2xl relative max-h-[90vh] overflow-y-auto print:border-none print:shadow-none print:max-h-none print:overflow-visible print-invoice-container">

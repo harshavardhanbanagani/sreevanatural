@@ -162,7 +162,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="min-h-screen bg-[#F3EFE9] text-brand-dark flex flex-col md:flex-row">
       
       {/* Sidebar Navigation */}
-      <aside className="w-full md:w-64 bg-brand-dark text-brand-bg flex-shrink-0 border-r border-brand-green/10 flex flex-col">
+      <aside className="w-full md:w-64 bg-brand-dark text-brand-bg flex-shrink-0 border-r border-brand-green/10 flex flex-col print:hidden">
         {/* Header */}
         <div className="p-6 border-b border-brand-bg/10 flex items-center justify-between">
           <div>
@@ -213,9 +213,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main Admin Workspace Panel Content */}
-      <main className="flex-grow p-6 sm:p-10 overflow-y-auto max-h-screen">
+      <main className="flex-grow p-6 sm:p-10 overflow-y-auto max-h-screen print:p-0 print:overflow-visible print:max-h-none">
         {children}
       </main>
+
 
     </div>
   );
