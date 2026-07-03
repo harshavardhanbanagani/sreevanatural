@@ -9,7 +9,7 @@ import { ShieldCheck, ArrowRight, CreditCard, Landmark, QrCode, Sparkles, X, Che
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cart, products, activeCoupon, settings, placeOrder } = useApp();
+  const { cart, products, activeCoupon, settings, placeOrder, currentUser } = useApp();
 
   // Form Fields
   const [name, setName] = useState("");
@@ -19,6 +19,19 @@ export default function CheckoutPage() {
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("UPI");
+
+  // Pre-fill profile details if customer is logged in
+  React.useEffect(() => {
+    if (currentUser) {
+      setName(currentUser.name || "");
+      setEmail(currentUser.email || "");
+      setPhone(currentUser.phone || "");
+      setAddress(currentUser.address || "");
+      setCity(currentUser.city || "");
+      setPostalCode(currentUser.postalCode || "");
+    }
+  }, [currentUser]);
+
 
   // Razorpay simulation state
   const [showRazorpay, setShowRazorpay] = useState(false);

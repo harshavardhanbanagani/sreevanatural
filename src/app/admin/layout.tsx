@@ -13,8 +13,10 @@ import {
   Ticket,
   Settings,
   Store,
-  ChevronRight
+  ChevronRight,
+  LogOut
 } from "lucide-react";
+
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -45,6 +47,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       }
       setAuthLoading(false);
     }, 800);
+  };
+
+  const handleAdminLogout = () => {
+    logoutUser();
+    router.push("/");
   };
 
   if (!currentUser || currentUser.role !== "admin") {
@@ -206,11 +213,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
+        {/* Admin Console Sign Out */}
+        <div className="p-4 border-t border-brand-bg/10">
+          <button
+            onClick={handleAdminLogout}
+            className="w-full flex items-center justify-center gap-2 py-2.5 border border-brand-orange/20 text-brand-orange hover:bg-brand-orange hover:text-brand-bg text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>Sign Out</span>
+          </button>
+        </div>
+
         {/* Console footer */}
         <div className="p-4 border-t border-brand-bg/10 text-center text-[10px] text-brand-bg/40 font-semibold tracking-wider">
           SREEVA NATURALS v1.0.0
         </div>
       </aside>
+
 
       {/* Main Admin Workspace Panel Content */}
       <main className="flex-grow p-6 sm:p-10 overflow-y-auto max-h-screen print:p-0 print:overflow-visible print:max-h-none">
