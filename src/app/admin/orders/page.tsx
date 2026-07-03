@@ -143,16 +143,27 @@ export default function AdminOrdersPage() {
 
             {/* Print-only Invoice Header */}
             <div className="hidden print:flex justify-between items-center border-b-2 border-brand-green p-8 mb-6 bg-white">
-              <div>
-                <h1 className="font-serif text-3xl font-bold text-brand-green">SREEVA NATURALS</h1>
-                <p className="text-xs uppercase tracking-widest text-brand-orange font-semibold">From Nature To Nourishment</p>
+              <div className="flex items-center gap-4">
+                <div className="relative w-28 h-10 flex-shrink-0">
+                  <Image
+                    src="/logo.png"
+                    alt="Sreeva Naturals Logo"
+                    fill
+                    className="object-contain object-left"
+                  />
+                </div>
+                <div>
+                  <h1 className="font-serif text-2xl font-bold text-brand-green">SREEVA NATURALS</h1>
+                  <p className="text-[10px] uppercase tracking-widest text-brand-orange font-semibold">From Nature To Nourishment</p>
+                </div>
               </div>
               <div className="text-right text-xs text-brand-dark/70">
-                <p className="font-bold">INVOICE</p>
+                <p className="font-bold text-brand-green">INVOICE</p>
                 <p>Order ID: {selectedOrder.id}</p>
                 <p>Date: {selectedOrder.date}</p>
               </div>
             </div>
+
 
             {/* Invoice Body Content */}
             <div className="p-8 space-y-6 bg-white">
