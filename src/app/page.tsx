@@ -11,13 +11,14 @@ export default function Homepage() {
   const { products, addToCart, toggleWishlist, isInWishlist, reviews } = useApp();
   const [showSplash, setShowSplash] = useState(true);
 
-  // Splash Screen auto-redirect after 3 seconds
+  // Splash Screen auto-redirect after 1 second
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 3000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
+
 
   const featuredReviews = reviews.filter((r) => r.isFeatured || r.rating === 5).slice(0, 3);
   const featuredProducts = products.slice(0, 4);
@@ -37,7 +38,7 @@ export default function Homepage() {
               <motion.div
                 initial={{ scale: 0.90, opacity: 0 }}
                 animate={{ scale: 1.03, opacity: 1 }}
-                transition={{ duration: 3.0, ease: "easeOut" }}
+                transition={{ duration: 1.0, ease: "easeOut" }}
                 className="relative w-72 h-24 sm:w-[450px] sm:h-[150px] mx-auto flex items-center justify-center"
               >
                 <Image
@@ -53,7 +54,8 @@ export default function Homepage() {
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: "160px" }}
-                transition={{ delay: 0.2, duration: 2.2, ease: "easeInOut" }}
+                transition={{ delay: 0.1, duration: 0.8, ease: "easeInOut" }}
+
                 className="h-[1px] bg-brand-green/30 mx-auto mt-8 relative overflow-hidden"
               >
                 <motion.div 
