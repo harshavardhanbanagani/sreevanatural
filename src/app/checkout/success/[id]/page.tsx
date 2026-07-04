@@ -154,107 +154,128 @@ export default function OrderSuccessPage() {
           </div>
         )}
 
-        {/* Invoice Grid Details */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {/* Shipping Address */}
-          <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl">
-            <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3">
-              Shipping Destination
-            </h4>
-            <div className="text-xs space-y-1 font-light leading-relaxed">
-              <p className="font-bold text-brand-green">{order.customerName}</p>
-              <p className="text-brand-dark/85">{order.address}</p>
-              <p className="text-brand-dark/85">{order.city} - {order.postalCode}</p>
-              <p className="text-brand-dark/70 mt-3">Phone: {order.customerPhone}</p>
-              <p className="text-brand-dark/70">Email: {order.customerEmail}</p>
+        {/* Cinematic Paper Receipt Wrapper */}
+        <div className="relative bg-white border border-[#2A211C]/15 rounded-3xl p-6 sm:p-10 shadow-2xl overflow-hidden mb-12 print:border-none print:shadow-none print:p-0 print:bg-transparent">
+          {/* Decorative Top Tear-Off Strip (Screen only) */}
+          <div className="flex items-center justify-between gap-4 text-brand-dark/30 text-[9px] font-mono tracking-widest uppercase mb-8 print:hidden">
+            <span>● sreeva organic receipt ●</span>
+            <span className="flex-grow border-b border-dashed border-brand-dark/20"></span>
+            <span>official ticket</span>
+          </div>
+
+          {/* Invoice Grid Details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {/* Shipping Address */}
+            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:border print:border-gray-200">
+              <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3">
+                Shipping Destination
+              </h4>
+              <div className="text-xs space-y-1 font-light leading-relaxed">
+                <p className="font-bold text-brand-green">{order.customerName}</p>
+                <p className="text-brand-dark/85">{order.address}</p>
+                <p className="text-brand-dark/85">{order.city} - {order.postalCode}</p>
+                <p className="text-brand-dark/70 mt-3">Phone: {order.customerPhone}</p>
+                <p className="text-brand-dark/70">Email: {order.customerEmail}</p>
+              </div>
+            </div>
+
+            {/* Payment & Invoice meta */}
+            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:border print:border-gray-200">
+              <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3">
+                Payment & Invoice Details
+              </h4>
+              <div className="text-xs space-y-2 font-light">
+                <div className="flex justify-between">
+                  <span className="text-brand-dark/65">Order Date</span>
+                  <span className="font-semibold">{order.date}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-brand-dark/65">Payment Method</span>
+                  <span className="font-semibold">{order.paymentMethod}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-brand-dark/65">Payment Status</span>
+                  <span className="text-green-700 font-bold uppercase tracking-wider text-[10px]">Paid</span>
+                </div>
+                {order.couponCode && (
+                  <div className="flex justify-between text-brand-orange">
+                    <span>Promo Code Applied</span>
+                    <span className="font-bold">{order.couponCode}</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Payment & Invoice meta */}
-          <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl">
-            <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3">
-              Payment & Invoice Details
-            </h4>
-            <div className="text-xs space-y-2 font-light">
+          {/* Invoice Summary Items Table */}
+          <div className="bg-brand-cream border border-brand-dark/5 rounded-2xl overflow-hidden print:border print:border-gray-200">
+            <div className="p-4 bg-brand-green text-brand-bg text-[10px] uppercase tracking-wider font-semibold grid grid-cols-12 gap-4">
+              <span className="col-span-6">Harvest Item</span>
+              <span className="col-span-2 text-center">Unit Price</span>
+              <span className="col-span-2 text-center">Qty</span>
+              <span className="col-span-2 text-right">Subtotal</span>
+            </div>
+
+            <div className="divide-y divide-brand-dark/5 p-4 space-y-4 bg-white">
+              {order.items.map((item) => (
+                <div key={item.productId} className="grid grid-cols-12 gap-4 items-center text-xs font-light py-2">
+                  <div className="col-span-6 flex items-center gap-3">
+                    <div className="relative w-10 h-10 bg-brand-bg border border-brand-dark/5 p-0.5 rounded flex-shrink-0 print:hidden">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <div>
+                      <h5 className="font-serif-luxury font-bold text-brand-green">{item.name}</h5>
+                    </div>
+                  </div>
+                  <span className="col-span-2 text-center">₹{item.price}</span>
+                  <span className="col-span-2 text-center font-bold">{item.quantity}</span>
+                  <span className="col-span-2 text-right font-bold text-brand-green">₹{item.price * item.quantity}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="p-6 bg-brand-cream border-t border-brand-dark/5 space-y-3 text-xs text-brand-dark/85 font-light print:border-t">
               <div className="flex justify-between">
-                <span className="text-brand-dark/65">Order Date</span>
-                <span className="font-semibold">{order.date}</span>
+                <span>Items Subtotal</span>
+                <span className="font-semibold">₹{order.subtotal}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-brand-dark/65">Payment Method</span>
-                <span className="font-semibold">{order.paymentMethod}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-brand-dark/65">Payment Status</span>
-                <span className="text-green-700 font-bold uppercase tracking-wider text-[10px]">Paid</span>
-              </div>
-              {order.couponCode && (
-                <div className="flex justify-between text-brand-orange">
-                  <span>Promo Code Applied</span>
-                  <span className="font-bold">{order.couponCode}</span>
+              {order.discount > 0 && (
+                <div className="flex justify-between text-brand-orange font-medium">
+                  <span>Discount Code</span>
+                  <span>- ₹{order.discount}</span>
                 </div>
               )}
+              <div className="flex justify-between">
+                <span>GST ({settings.taxRate}%)</span>
+                <span className="font-semibold">₹{order.tax}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Shipping & Handling</span>
+                <span>{order.shipping === 0 ? "FREE" : `₹${order.shipping}`}</span>
+              </div>
+              <div className="flex justify-between items-end border-t border-brand-dark/5 pt-3 text-sm font-bold text-brand-green">
+                <span className="font-serif-luxury text-base">Grand Total Paid</span>
+                <span className="text-lg">₹{order.total}</span>
+              </div>
             </div>
+          </div>
+
+          {/* Decorative Barcode Watermark (Screen only) */}
+          <div className="flex flex-col items-center justify-center pt-8 border-t border-dashed border-brand-dark/10 mt-8 print:hidden">
+            <span className="font-mono text-xl tracking-[0.3em] text-brand-dark/40 font-light select-none">
+              ||||| | |||| ||| | ||| ||||| | ||
+            </span>
+            <span className="text-[8px] font-mono tracking-[0.25em] text-brand-dark/40 uppercase mt-1.5">
+              * Thank you for eating pure organic *
+            </span>
           </div>
         </div>
 
-        {/* Invoice Summary Items Table */}
-        <div className="bg-brand-cream border border-brand-dark/5 rounded-2xl overflow-hidden mb-10">
-          <div className="p-4 bg-brand-green text-brand-bg text-[10px] uppercase tracking-wider font-semibold grid grid-cols-12 gap-4">
-            <span className="col-span-6">Harvest Item</span>
-            <span className="col-span-2 text-center">Unit Price</span>
-            <span className="col-span-2 text-center">Qty</span>
-            <span className="col-span-2 text-right">Subtotal</span>
-          </div>
-
-          <div className="divide-y divide-brand-dark/5 p-4 space-y-4">
-            {order.items.map((item) => (
-              <div key={item.productId} className="grid grid-cols-12 gap-4 items-center text-xs font-light py-2">
-                <div className="col-span-6 flex items-center gap-3">
-                  <div className="relative w-10 h-10 bg-brand-bg border border-brand-dark/5 p-0.5 rounded flex-shrink-0 print:hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                  <div>
-                    <h5 className="font-serif-luxury font-bold text-brand-green">{item.name}</h5>
-                  </div>
-                </div>
-                <span className="col-span-2 text-center">₹{item.price}</span>
-                <span className="col-span-2 text-center font-bold">{item.quantity}</span>
-                <span className="col-span-2 text-right font-bold text-brand-green">₹{item.price * item.quantity}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="p-6 bg-brand-cream border-t border-brand-dark/5 space-y-3 text-xs text-brand-dark/85 font-light">
-            <div className="flex justify-between">
-              <span>Items Subtotal</span>
-              <span className="font-semibold">₹{order.subtotal}</span>
-            </div>
-            {order.discount > 0 && (
-              <div className="flex justify-between text-brand-orange font-medium">
-                <span>Discount Code</span>
-                <span>- ₹{order.discount}</span>
-              </div>
-            )}
-            <div className="flex justify-between">
-              <span>GST ({settings.taxRate}%)</span>
-              <span className="font-semibold">₹{order.tax}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Shipping & Handling</span>
-              <span>{order.shipping === 0 ? "FREE" : `₹${order.shipping}`}</span>
-            </div>
-            <div className="flex justify-between items-end border-t border-brand-dark/5 pt-3 text-sm font-bold text-brand-green">
-              <span className="font-serif-luxury text-base">Grand Total Paid</span>
-              <span className="text-lg">₹{order.total}</span>
-            </div>
-          </div>
-        </div>
 
         {/* Footer Actions (Screen only) */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between pt-4 border-t border-brand-dark/5 print:hidden">

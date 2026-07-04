@@ -23,6 +23,83 @@ export default function ProductDetailsPage() {
   const [reviewAuthor, setReviewAuthor] = useState("");
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState("");
+
+  // Dynamic Seed-to-Bottle Process Timeline content
+  const timelineSteps = useMemo(() => {
+    if (!product) return [];
+    
+    if (product.category === "Ghee") {
+      return [
+        {
+          title: "A2 Milk Harvesting",
+          description: "Fresh milk collected from free-grazing indigenous cows (Gir & Hallikar) at sunrise.",
+          icon: "🥛"
+        },
+        {
+          title: "Traditional Bilona Churning",
+          description: "Whole curd is hand-churned bi-directionally with a wooden churner to separate butter.",
+          icon: "🌀"
+        },
+        {
+          title: "Slow Fire Melting",
+          description: "Pure makhan is boiled slowly over low-heat firewood stoves to extract premium golden ghee.",
+          icon: "🔥"
+        },
+        {
+          title: "Hand-Filtered Packaging",
+          description: "Filtered through traditional muslin cloths and sealed in amber glass jars.",
+          icon: "🏺"
+        }
+      ];
+    } else if (product.category === "Honey") {
+      return [
+        {
+          title: "Wild Comb Harvesting",
+          description: "Harvested by indigenous forest tribes from wild hives in deep Western Ghats forests.",
+          icon: "🐝"
+        },
+        {
+          title: "Raw Mesh Straining",
+          description: "Gently strained through organic cotton meshes to separate bee wax, leaving pollen intact.",
+          icon: "☀️"
+        },
+        {
+          title: "No Heating (Pasteurless)",
+          description: "Kept 100% raw and unheated to preserve live enzymes and natural wellness properties.",
+          icon: "🌿"
+        },
+        {
+          title: "Sterilized Glass Sealing",
+          description: "Jarred in chemical-free containers to preserve its raw organic compounds indefinitely.",
+          icon: "🏺"
+        }
+      ];
+    } else { // Oils
+      return [
+        {
+          title: "Organic Seed Sourcing",
+          description: "Sourced directly from rain-fed indigenous farms practicing multi-cropping methods.",
+          icon: "🌱"
+        },
+        {
+          title: "Cold Vaagai Wood Pressing",
+          description: "Slowly crushed in a Vaagai wood press (Chekku) under 35°C to avoid thermal nutrient loss.",
+          icon: "🪵"
+        },
+        {
+          title: "Sun Sedimentation",
+          description: "Settled naturally in sunlit chambers for 4 days without refining or artificial bleach.",
+          icon: "🏺"
+        },
+        {
+          title: "Glass Amber Bottling",
+          description: "Packed in dark luxury amber bottles to prevent light-based oxidation and store premium oils.",
+          icon: "🧴"
+        }
+      ];
+    }
+  }, [product]);
+
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
   const [addedNotify, setAddedNotify] = useState(false);
 
@@ -247,6 +324,56 @@ export default function ProductDetailsPage() {
             </ul>
           </div>
         </div>
+
+        {/* Cinematic Seed-to-Bottle Dynamic Process Timeline */}
+        {timelineSteps.length > 0 && (
+          <div className="mb-20 bg-white border border-[#2A211C]/10 p-8 sm:p-12 rounded-3xl relative overflow-hidden shadow-sm">
+            <div className="absolute -top-24 -right-24 w-48 h-48 bg-brand-green/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-brand-orange/5 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="text-center max-w-xl mx-auto mb-12 relative z-10">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-brand-orange font-bold mb-2 block">
+                Pure Craftsmanship
+              </span>
+              <h2 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-brand-green">
+                Traditional Seed-to-Bottle Process
+              </h2>
+              <p className="text-xs text-brand-dark/70 font-light mt-2 leading-relaxed">
+                We craft each batch with ancestral patience. See how your {product.name.toLowerCase()} journeys from raw harvest to your kitchen.
+              </p>
+            </div>
+
+            {/* Horizontal Timeline Steps wrapper */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4 relative z-10 mt-8">
+              {timelineSteps.map((step, idx) => (
+                <div key={idx} className="relative flex flex-col items-center text-center group">
+                  {/* Step Connector Line (Only for desktop between columns) */}
+                  {idx < 3 && (
+                    <div className="hidden md:block absolute top-7 left-[calc(50%+28px)] right-[calc(-50%+28px)] h-0.5 bg-brand-green/10 z-0">
+                      <div className="w-0 h-full bg-brand-orange group-hover:w-full transition-all duration-700 ease-in-out" />
+                    </div>
+                  )}
+
+                  {/* Icon Circle */}
+                  <div className="relative w-14 h-14 bg-brand-cream border border-brand-dark/10 rounded-full flex items-center justify-center text-2xl shadow-sm z-10 transition-all duration-500 group-hover:bg-brand-green group-hover:border-brand-green group-hover:scale-110">
+                    <span className="group-hover:scale-95 transition-transform block">{step.icon}</span>
+                    {/* Number badge */}
+                    <span className="absolute -top-1 -right-1 bg-brand-orange text-brand-bg text-[9px] font-bold w-5 h-5 rounded-full flex items-center justify-center border border-brand-bg shadow-sm">
+                      {idx + 1}
+                    </span>
+                  </div>
+
+                  <h4 className="font-serif-luxury text-sm font-bold text-brand-green mt-5 mb-2 group-hover:text-brand-orange transition-colors">
+                    {step.title}
+                  </h4>
+                  <p className="text-xs font-light text-brand-dark/70 px-4 leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Reviews Section */}
         <div className="mb-20">

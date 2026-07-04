@@ -15,8 +15,10 @@ export default function CartPage() {
     activeCoupon,
     applyCouponCode,
     removeCoupon,
+    coupons,
     settings
   } = useApp();
+
 
   const [couponCode, setCouponCode] = useState("");
   const [couponError, setCouponError] = useState("");
@@ -214,7 +216,7 @@ export default function CartPage() {
                 </div>
               )}
 
-              {couponError && (
+               {couponError && (
                 <p className="text-xs text-red-600 font-semibold mt-2 animate-logo-fade">
                   {couponError}
                 </p>
@@ -225,11 +227,62 @@ export default function CartPage() {
                 </p>
               )}
 
-              <p className="text-[10px] text-brand-dark/50 mt-3 font-semibold">
-                * Try coupon <span className="font-bold text-brand-orange">PURE20</span> for 20% off on spends above ₹1000!
-              </p>
+              {/* Interactive Click-to-Apply Coupon Helper Grid */}
+              {!activeCoupon && coupons.length > 0 && (
+                <div className="mt-5 pt-4 border-t border-brand-dark/5 space-y-3">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-brand-dark/50 block">
+                    Available Special Offers:
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {coupons.map((c) => {
+                      const isEligible = subtotal >= c.minSpend;
+                      return (
+                        <button
+                          key={c.id}
+                          type="button"
+                          onClick={() => {
+                            if (isEligible) {
+                              setCouponCode(c.code);
+                              const res = applyCouponCode(c.code, subtotal);
+                              if (res.success) {
+                                setCouponSuccess(res.message);
+                              } else {
+                                setCouponError(res.message);
+                              }
+                            }
+                          }}
+                          className={`p-3 rounded-xl border text-left flex flex-col justify-between transition-all duration-300 ${
+                            isEligible
+                              ? "bg-white border-brand-green/20 hover:border-brand-green hover:shadow-md cursor-pointer"
+                              : "bg-brand-bg/50 border-brand-dark/5 opacity-60 cursor-not-allowed"
+                          }`}
+                          disabled={!isEligible}
+                        >
+                          <div className="flex justify-between items-center w-full">
+                            <span className="font-bold text-brand-orange text-[10px] uppercase tracking-wider bg-brand-orange/5 px-2 py-0.5 rounded border border-brand-orange/15">
+                              {c.code}
+                            </span>
+                            <span className="text-[10px] font-bold text-brand-green">
+                              {c.discountType === "percentage" ? `${c.discountValue}% OFF` : `₹${c.discountValue} OFF`}
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-brand-dark/65 font-light mt-2 leading-tight">
+                            Save {c.discountType === "percentage" ? `${c.discountValue}%` : `₹${c.discountValue}`} on orders above ₹{c.minSpend}.
+                          </p>
+                          {!isEligible && (
+                            <span className="text-[8px] font-bold uppercase tracking-wider text-brand-orange/80 mt-1.5">
+                              Add ₹{c.minSpend - subtotal} more to unlock
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
+
 
           {/* Checkout Order Summary Column */}
           <div className="lg:col-span-1 space-y-6">
