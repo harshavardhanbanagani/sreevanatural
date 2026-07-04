@@ -232,6 +232,18 @@ export default function AdminOrdersPage() {
 
             </div>
 
+            {/* Printable Logo Watermark (Faint print seal overlay) */}
+            <div className="hidden print:flex absolute inset-0 items-center justify-center pointer-events-none z-50 opacity-[0.04] mix-blend-multiply">
+              <div className="relative w-96 h-96">
+                <Image
+                  src="/logo.png"
+                  alt="Sreeva Naturals Watermark"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </div>
+
             {/* Print Footer Notice (Print only) */}
             <div className="hidden print:block text-center text-[10px] text-brand-dark/50 mt-12 border-t border-gray-200 pt-4">
               Thank you for choosing Sreeva Naturals. Organic food extracts settled naturally.
@@ -240,6 +252,7 @@ export default function AdminOrdersPage() {
           </div>
         </div>
       )}
+
 
     </div>
   );

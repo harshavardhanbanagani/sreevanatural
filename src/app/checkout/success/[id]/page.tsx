@@ -263,8 +263,21 @@ export default function OrderSuccessPage() {
                 <span className="text-lg">₹{order.total}</span>
               </div>
             </div>
+
+            {/* Printable Logo Watermark (Faint print seal overlay) */}
+            <div className="hidden print:flex absolute inset-0 items-center justify-center pointer-events-none z-50 opacity-[0.04] mix-blend-multiply">
+              <div className="relative w-96 h-96">
+                <Image
+                  src="/logo.png"
+                  alt="Sreeva Naturals Watermark"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </div>
           </div>
         </div>
+
 
 
 
