@@ -87,129 +87,187 @@ export default function Homepage() {
 
       {/* MAIN HOMEPAGE CONTENT */}
       <div className="relative overflow-hidden">
-        {/* LUXURY EDITORIAL HERO SECTION */}
-        <section className="relative h-[95vh] flex items-center bg-[#F7F3ED] text-[#1F1A17] overflow-hidden">
-          
-          {/* Cinematic Background Image */}
-          <div className="absolute inset-0 z-0 select-none">
-            <motion.div
-              initial={{ scale: 1.05, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 3.5, ease: "easeOut" }}
-              className="absolute inset-0"
-            >
-              <Image
-                src="/luxury_hero_bg.png"
-                alt="Luxury Organic Background"
-                fill
-                className="object-cover object-center"
-                priority
-              />
-            </motion.div>
-            
-            {/* Elegant vignette overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#F7F3ED]/85 via-[#F7F3ED]/30 to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#F7F3ED] to-transparent z-10 pointer-events-none" />
-          </div>
+        {/* SREEVA NATURALS PREMIUM WOOD-PRESSED HERO SECTION */}
+        <section className="relative min-h-[90vh] lg:h-[95vh] flex items-center bg-[#F7F3ED] text-[#1B1815] overflow-hidden pt-20 pb-16 lg:py-0">
+          {/* Subtle Ambient Sunlight Glow (Screen only) */}
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#B86B2D]/5 rounded-full blur-3xl pointer-events-none animate-pulse" />
+          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#6D7553]/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-2xl text-left flex flex-col items-start space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
               
-              {/* Brand Tagline */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-                className="flex items-center gap-2"
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-[#6B7A4B]" />
-                <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-[#6B7A4B] font-sans">
-                  Sreeva Organic Heritage
-                </span>
-              </motion.div>
-
-              {/* Headline */}
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 1.0 }}
-                className="font-serif-luxury text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] tracking-wide text-[#1F1A17] max-w-lg"
-              >
-                PURE TRADITION.<br />
-                REFINED FOR<br />
-                <span className="text-[#B86B2D]">MODERN WELLNESS.</span>
-              </motion.h2>
-
-              {/* Supporting Copy */}
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="text-xs sm:text-sm font-light text-[#4A433C] leading-relaxed max-w-md"
-              >
-                Farm-direct ingredients crafted through traditional wood-pressed extraction methods, preserving purity, nutrients and natural wellness.
-              </motion.p>
-
-              {/* CTAs */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-                className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto pt-2"
-              >
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
-                  <Link
-                    href="/shop"
-                    className="w-full sm:w-auto text-center px-8 py-4 bg-[#B86B2D] hover:bg-[#a05a22] text-[#FDFBF7] text-xs font-bold uppercase tracking-widest rounded-full transition-luxury flex items-center justify-center gap-2 shadow-lg shadow-[#B86B2D]/20 cursor-pointer"
-                  >
-                    <span>Shop Collection</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </motion.div>
+              {/* Left Column: Brand Narrative & Copy */}
+              <div className="lg:col-span-6 space-y-8 text-left">
                 
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
-                  <Link
-                    href="/about"
-                    className="w-full sm:w-auto text-center px-8 py-4 border border-[#4A433C]/30 hover:bg-[#4A433C]/5 text-[#4A433C] text-xs font-bold uppercase tracking-widest rounded-full transition-luxury flex items-center justify-center cursor-pointer"
-                  >
-                    Our Story
-                  </Link>
+                {/* Micro Tagline */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EFE7DB] border border-[#1B1815]/5"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B86B2D] animate-ping" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#6D7553] font-sans">
+                    Traditional Indian Heritage
+                  </span>
                 </motion.div>
+
+                {/* Editorial Headline */}
+                <motion.h1
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 1.0 }}
+                  className="font-serif-luxury text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight text-[#1B1815]"
+                >
+                  WOOD PRESSED.<br />
+                  FARM DIRECT.<br />
+                  <span className="text-[#B86B2D]">NATURALLY PURE.</span>
+                </motion.h1>
+
+                {/* Supporting Copy */}
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                  className="text-sm font-light text-[#4A433C] leading-relaxed max-w-lg"
+                >
+                  Experience oils crafted through traditional wood-pressed extraction methods, preserving the nutrients, aroma, and goodness nature intended.
+                </motion.p>
+
+                {/* Actions */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                  className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+                >
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
+                    <Link
+                      href="/shop"
+                      className="w-full sm:w-auto text-center px-8 py-4 bg-[#B86B2D] hover:bg-[#a05a22] text-[#FDFBF7] text-xs font-bold uppercase tracking-widest rounded-full transition-luxury flex items-center justify-center gap-2 shadow-lg shadow-[#B86B2D]/20 cursor-pointer"
+                    >
+                      <span>Shop Collection</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </motion.div>
+                  
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
+                    <Link
+                      href="/about"
+                      className="w-full sm:w-auto text-center px-8 py-4 border-2 border-[#1B1815]/20 hover:bg-[#1B1815]/5 text-[#1B1815] text-xs font-bold uppercase tracking-widest rounded-full transition-luxury flex items-center justify-center cursor-pointer"
+                    >
+                      Discover Our Process
+                    </Link>
+                  </motion.div>
+                </motion.div>
+
+              </div>
+
+              {/* Right Column: Premium Cinematic Visual */}
+              <div className="lg:col-span-6 flex justify-center lg:justify-end">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.4, duration: 1.2, ease: "easeOut" }}
+                  className="relative w-full max-w-[480px] aspect-square rounded-3xl overflow-hidden border border-[#1B1815]/10 shadow-2xl bg-[#EFE7DB]/40 group"
+                >
+                  <Image
+                    src="/traditional_wood_press.png"
+                    alt="Traditional Wooden Oil Press (Chekku)"
+                    fill
+                    className="object-cover transition-transform duration-[8.0s] ease-out group-hover:scale-105"
+                    priority
+                  />
+                  
+                  {/* Subtle Shimmer Highlight Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#F7F3ED]/10 to-transparent opacity-30 pointer-events-none mix-blend-overlay" />
+                  
+                  {/* Visual Framing Details */}
+                  <div className="absolute bottom-6 left-6 z-10 bg-[#1B1815]/80 backdrop-blur-md px-4 py-2.5 rounded-xl border border-[#F7F3ED]/10 text-[#F7F3ED] text-[10px] tracking-wider uppercase">
+                    <span className="font-bold text-[#B86B2D]">Batch #4</span> &bull; Vaagai Wood Chekku
+                  </div>
+                </motion.div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* PREMIUM TRUST CARDS SECTION */}
+        <section className="py-12 bg-[#FAF6EE] border-y border-[#1B1815]/5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              
+              {/* Wood Pressed */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-white border border-[#1B1815]/5 p-6 rounded-2xl flex items-start gap-4 transition-all duration-300 hover:shadow-md hover:border-[#B86B2D]/20 group"
+              >
+                <div className="p-3 bg-[#EFE7DB] text-[#B86B2D] rounded-xl transition-colors group-hover:bg-[#B86B2D] group-hover:text-[#FDFBF7]">
+                  <Award className="w-5 h-5 flex-shrink-0" />
+                </div>
+                <div>
+                  <h4 className="font-serif-luxury text-sm font-bold text-[#1B1815]">Wood Pressed</h4>
+                  <p className="text-xs font-light text-[#4A433C]/80 mt-1 leading-relaxed">Traditional slow extraction</p>
+                </div>
               </motion.div>
 
-              {/* Minimal Trust Indicators Section */}
+              {/* Farm Direct */}
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.0, duration: 1.0 }}
-                className="grid grid-cols-2 md:flex md:items-center gap-x-6 gap-y-3 pt-8 border-t border-[#4A433C]/10 w-full text-[10px] font-bold uppercase tracking-widest text-[#4A433C]/75"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1, duration: 0.6 }}
+                className="bg-white border border-[#1B1815]/5 p-6 rounded-2xl flex items-start gap-4 transition-all duration-300 hover:shadow-md hover:border-[#B86B2D]/20 group"
               >
-                <div className="flex items-center gap-2">
-                  <Leaf className="w-4 h-4 text-[#6B7A4B] flex-shrink-0" />
-                  <span>100% Natural</span>
+                <div className="p-3 bg-[#EFE7DB] text-[#B86B2D] rounded-xl transition-colors group-hover:bg-[#B86B2D] group-hover:text-[#FDFBF7]">
+                  <Globe className="w-5 h-5 flex-shrink-0" />
                 </div>
-                <div className="hidden md:block w-px h-3 bg-[#4A433C]/10" />
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#6B7A4B] flex-shrink-0" />
-                  <span>Wood Pressed</span>
+                <div>
+                  <h4 className="font-serif-luxury text-sm font-bold text-[#1B1815]">Farm Direct</h4>
+                  <p className="text-xs font-light text-[#4A433C]/80 mt-1 leading-relaxed">Sourced directly from farmers</p>
                 </div>
-                <div className="hidden md:block w-px h-3 bg-[#4A433C]/10" />
-                <div className="flex items-center gap-2">
-                  <Globe className="w-4 h-4 text-[#6B7A4B] flex-shrink-0" />
-                  <span>Farm Direct</span>
+              </motion.div>
+
+              {/* Chemical Free */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="bg-white border border-[#1B1815]/5 p-6 rounded-2xl flex items-start gap-4 transition-all duration-300 hover:shadow-md hover:border-[#B86B2D]/20 group"
+              >
+                <div className="p-3 bg-[#EFE7DB] text-[#B86B2D] rounded-xl transition-colors group-hover:bg-[#B86B2D] group-hover:text-[#FDFBF7]">
+                  <ShieldCheck className="w-5 h-5 flex-shrink-0" />
                 </div>
-                <div className="hidden md:block w-px h-3 bg-[#4A433C]/10" />
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#6B7A4B] flex-shrink-0" />
-                  <span>Chemical Free</span>
+                <div>
+                  <h4 className="font-serif-luxury text-sm font-bold text-[#1B1815]">Chemical Free</h4>
+                  <p className="text-xs font-light text-[#4A433C]/80 mt-1 leading-relaxed">No industrial processing</p>
+                </div>
+              </motion.div>
+
+              {/* Nutrient Rich */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="bg-white border border-[#1B1815]/5 p-6 rounded-2xl flex items-start gap-4 transition-all duration-300 hover:shadow-md hover:border-[#B86B2D]/20 group"
+              >
+                <div className="p-3 bg-[#EFE7DB] text-[#B86B2D] rounded-xl transition-colors group-hover:bg-[#B86B2D] group-hover:text-[#FDFBF7]">
+                  <Leaf className="w-5 h-5 flex-shrink-0" />
+                </div>
+                <div>
+                  <h4 className="font-serif-luxury text-sm font-bold text-[#1B1815]">Nutrient Rich</h4>
+                  <p className="text-xs font-light text-[#4A433C]/80 mt-1 leading-relaxed">Retains natural goodness</p>
                 </div>
               </motion.div>
 
             </div>
           </div>
-
-          {/* Smooth Fade Transition bottom edge */}
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#FDFBF7] to-transparent z-10 pointer-events-none" />
         </section>
 
 
