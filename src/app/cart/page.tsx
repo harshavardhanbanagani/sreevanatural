@@ -291,7 +291,32 @@ export default function CartPage() {
                 Order Summary
               </h3>
 
+              {/* Free Shipping Goal Progress Bar */}
+              {subtotal > 0 && (
+                <div className="bg-white border border-brand-green/10 p-4 rounded-xl space-y-2 animate-logo-fade shadow-xs">
+                  <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider">
+                    {shipping === 0 ? (
+                      <span className="text-green-700">🎉 FREE Shipping Unlocked!</span>
+                    ) : (
+                      <span className="text-brand-dark/70">
+                        Add <span className="text-brand-orange">₹{settings.freeShippingThreshold - (subtotal - discount)}</span> more for Free Shipping
+                      </span>
+                    )}
+                    <span className="text-brand-green font-mono">
+                      {Math.min(100, Math.round(((subtotal - discount) / settings.freeShippingThreshold) * 100))}%
+                    </span>
+                  </div>
+                  <div className="w-full h-1.5 bg-brand-bg rounded-full overflow-hidden">
+                    <div
+                      className={`h-full transition-all duration-700 ${shipping === 0 ? "bg-green-600 animate-pulse" : "bg-brand-orange"}`}
+                      style={{ width: `${Math.min(100, Math.round(((subtotal - discount) / settings.freeShippingThreshold) * 100))}%` }}
+                    />
+                  </div>
+                </div>
+              )}
+
               {/* Price Details */}
+
               <div className="space-y-4 text-sm font-light text-brand-dark/85">
                 <div className="flex justify-between">
                   <span>Cart Subtotal</span>

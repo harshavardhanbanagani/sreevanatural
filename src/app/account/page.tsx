@@ -49,6 +49,14 @@ export default function AccountDashboard() {
     router.push("/");
   };
 
+  const handleBuyAgain = (items: { productId: string; name: string; price: number; quantity: number; image: string }[]) => {
+    items.forEach((item) => {
+      addToCart(item.productId, item.quantity);
+    });
+    router.push("/cart");
+  };
+
+
   // Resolve products in wishlist
   const wishlistProducts = products.filter((p) => wishlist.includes(p.id));
 
@@ -215,12 +223,22 @@ export default function AccountDashboard() {
                               </span>
                               <Link 
                                 href={`/checkout/success/${order.id}`}
-                                className="flex items-center gap-1 p-2 border border-brand-green/10 text-brand-green hover:bg-brand-green hover:text-brand-bg transition-colors rounded-lg text-[10px] font-bold uppercase tracking-wider"
+                                className="flex items-center gap-1 p-2 border border-brand-green/10 text-brand-green hover:bg-brand-cream transition-colors rounded-lg text-[10px] font-bold uppercase tracking-wider"
                               >
                                 <Eye className="w-3.5 h-3.5" />
                                 <span className="hidden sm:inline">Details</span>
                               </Link>
+                              {order.status !== "Cancelled" && (
+                                <button
+                                  onClick={() => handleBuyAgain(order.items)}
+                                  className="flex items-center gap-1.5 p-2 bg-brand-green hover:bg-brand-green-hover text-brand-bg transition-colors rounded-lg text-[10px] font-bold uppercase tracking-wider cursor-pointer shadow-xs"
+                                >
+                                  <ShoppingBag className="w-3.5 h-3.5" />
+                                  <span>Buy Again</span>
+                                </button>
+                              )}
                             </div>
+
                           </div>
 
                           {/* Order items listing */}

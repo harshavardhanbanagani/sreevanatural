@@ -18,6 +18,8 @@ export default function ShopPage() {
   // Quick View Modal
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [addedNotify, setAddedNotify] = useState<string | null>(null);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+
 
   // Extract categories dynamically
   const categories = useMemo(() => {
@@ -90,7 +92,8 @@ export default function ShopPage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           
           {/* Sidebar Filters */}
-          <div className="lg:col-span-1 bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl h-fit space-y-8">
+          <div className="hidden lg:block lg:col-span-1 bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl h-fit space-y-8">
+
             <div className="flex items-center gap-2 border-b border-brand-dark/5 pb-4">
               <SlidersHorizontal className="w-4 h-4 text-brand-green" />
               <h3 className="font-serif-luxury text-lg font-bold text-brand-green">Filters</h3>
@@ -441,6 +444,138 @@ export default function ShopPage() {
               </div>
 
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Sticky Mobile Filter Button (Screen Only) */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 lg:hidden animate-reveal-up print:hidden">
+        <button
+          onClick={() => setShowMobileFilters(true)}
+          className="flex items-center gap-2 bg-brand-green text-brand-bg px-6 py-3.5 rounded-full shadow-xl hover:bg-brand-green-hover text-xs font-bold uppercase tracking-widest transition-luxury cursor-pointer"
+        >
+          <SlidersHorizontal className="w-4 h-4 text-brand-orange" />
+          <span>Filters & Sort</span>
+        </button>
+      </div>
+
+      {/* MOBILE FILTERS SLIDE-UP DRAWER */}
+      {showMobileFilters && (
+        <div className="fixed inset-0 z-[99999] flex items-end justify-center bg-brand-dark/55 backdrop-blur-xs p-0 lg:hidden animate-fade-in">
+          {/* Background dismiss click */}
+          <div className="absolute inset-0" onClick={() => setShowMobileFilters(false)} />
+          
+          <div className="relative w-full bg-brand-bg rounded-t-3xl border-t border-brand-dark/15 shadow-2xl p-6 space-y-6 max-h-[85vh] overflow-y-auto animate-reveal-up z-10">
+            {/* Drawer handle */}
+            <div className="w-12 h-1 bg-brand-dark/10 rounded-full mx-auto mb-2" />
+            
+            <div className="flex items-center justify-between border-b border-brand-dark/5 pb-3">
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-brand-green" />
+                <h3 className="font-serif-luxury text-lg font-bold text-brand-green">Sort & Filter</h3>
+              </div>
+              <button
+                onClick={() => setShowMobileFilters(false)}
+                className="p-1.5 bg-brand-cream hover:bg-brand-orange hover:text-brand-bg rounded-full text-brand-dark transition-luxury cursor-pointer"
+                aria-label="Close filters"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Mobile Sort options inside drawer */}
+            <div className="space-y-2">
+              <label className="text-[10px] uppercase tracking-wider font-bold text-brand-dark/65">Sort Arrangement</label>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="w-full px-3 py-2.5 bg-brand-cream border border-brand-dark/10 rounded-lg text-xs font-semibold focus:outline-none focus:border-brand-green text-brand-dark"
+              >
+                <option value="default">Default Catalog</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
+                <option value="alpha">A to Z</option>
+              </select>
+            </div>
+
+            {/* Mobile Search */}
+            <div className="space-y-2">
+              <label className="text-[10px] uppercase tracking-wider font-bold text-brand-dark/65">Search Products</label>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="e.g. Mustard Oil..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 text-xs bg-brand-cream border border-brand-dark/10 rounded-lg focus:outline-none focus:border-brand-green text-brand-dark"
+                />
+                <Search className="w-4 h-4 text-brand-dark/40 absolute left-3 top-3.5" />
+              </div>
+            </div>
+
+            {/* Mobile Categories grid */}
+            <div className="space-y-2">
+              <label className="text-[10px] uppercase tracking-wider font-bold text-brand-dark/65">Category</label>
+              <div className="grid grid-cols-3 gap-2">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setCategory(cat)}
+                    className={`py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-luxury cursor-pointer ${
+                      category === cat
+                        ? "bg-brand-green text-brand-bg"
+                        : "bg-brand-cream text-brand-dark/75 border border-brand-dark/5"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Price Slider */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="text-[10px] uppercase tracking-wider font-bold text-brand-dark/65">Max Budget</label>
+                <span className="text-sm font-bold text-brand-green">₹{maxPrice}</span>
+              </div>
+              <input
+                type="range"
+                min="100"
+                max={maxAvailablePrice}
+                step="50"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                className="w-full accent-brand-green"
+              />
+              <div className="flex justify-between text-[10px] text-brand-dark/50 font-semibold">
+                <span>₹100</span>
+                <span>₹{maxAvailablePrice}</span>
+              </div>
+            </div>
+
+            {/* Mobile Apply Actions */}
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-brand-dark/5">
+              <button
+                onClick={() => {
+                  setSearch("");
+                  setCategory("All");
+                  setMaxPrice(maxAvailablePrice);
+                  setSortBy("default");
+                }}
+                className="py-3 border border-brand-green/20 text-brand-green rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-brand-cream transition-luxury cursor-pointer"
+              >
+                Reset
+              </button>
+              <button
+                onClick={() => setShowMobileFilters(false)}
+                className="py-3 bg-brand-green text-brand-bg rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-brand-green-hover transition-luxury cursor-pointer shadow-md"
+              >
+                Apply
+              </button>
+            </div>
+
           </div>
         </div>
       )}

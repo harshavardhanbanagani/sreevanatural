@@ -151,7 +151,7 @@ export default function CheckoutPage() {
                     placeholder="John Doe"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/10 rounded-lg text-sm focus:outline-none focus:border-brand-green"
+                    className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/15 rounded-lg text-sm focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 focus:shadow-md transition-all duration-300 text-brand-dark font-semibold"
                   />
                 </div>
                 <div className="space-y-1">
@@ -163,7 +163,7 @@ export default function CheckoutPage() {
                     placeholder="9000090000"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/10 rounded-lg text-sm focus:outline-none focus:border-brand-green"
+                    className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/15 rounded-lg text-sm focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 focus:shadow-md transition-all duration-300 text-brand-dark font-semibold"
                   />
                 </div>
               </div>
@@ -176,7 +176,7 @@ export default function CheckoutPage() {
                   placeholder="john@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/10 rounded-lg text-sm focus:outline-none focus:border-brand-green"
+                  className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/15 rounded-lg text-sm focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 focus:shadow-md transition-all duration-300 text-brand-dark font-semibold"
                 />
               </div>
             </div>
@@ -195,7 +195,7 @@ export default function CheckoutPage() {
                   placeholder="Flat No, Apartment, Street Name"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/10 rounded-lg text-sm focus:outline-none focus:border-brand-green"
+                  className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/15 rounded-lg text-sm focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 focus:shadow-md transition-all duration-300 text-brand-dark font-semibold"
                 />
               </div>
 
@@ -208,7 +208,7 @@ export default function CheckoutPage() {
                     placeholder="Mumbai"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/10 rounded-lg text-sm focus:outline-none focus:border-brand-green"
+                    className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/15 rounded-lg text-sm focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 focus:shadow-md transition-all duration-300 text-brand-dark font-semibold"
                   />
                 </div>
                 <div className="space-y-1">
@@ -220,7 +220,7 @@ export default function CheckoutPage() {
                     placeholder="400001"
                     value={postalCode}
                     onChange={(e) => setPostalCode(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/10 rounded-lg text-sm focus:outline-none focus:border-brand-green"
+                    className="w-full px-4 py-2.5 bg-brand-bg border border-brand-dark/15 rounded-lg text-sm focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 focus:shadow-md transition-all duration-300 text-brand-dark font-semibold"
                   />
                 </div>
               </div>

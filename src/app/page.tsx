@@ -11,13 +11,15 @@ export default function Homepage() {
   const { products, addToCart, toggleWishlist, isInWishlist, reviews } = useApp();
   const [showSplash, setShowSplash] = useState(true);
 
-  // Splash Screen auto-redirect after 1 second
+  // Splash Screen auto-redirect after 600ms for premium load speed
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 1000);
+    }, 600);
     return () => clearTimeout(timer);
   }, []);
+
+
 
 
   const featuredReviews = reviews.filter((r) => r.isFeatured || r.rating === 5).slice(0, 3);

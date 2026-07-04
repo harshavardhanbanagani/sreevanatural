@@ -55,16 +55,20 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`text-[11px] font-bold tracking-[0.2em] uppercase transition-luxury hover:text-brand-orange ${
+                    className={`relative py-2 text-[11px] font-bold tracking-[0.2em] uppercase transition-luxury hover:text-brand-orange ${
                       isActive ? "text-brand-orange" : "text-brand-dark/75"
                     }`}
                   >
-                    {link.name}
+                    <span>{link.name}</span>
+                    {isActive && (
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-orange rounded-full animate-logo-fade" />
+                    )}
                   </Link>
                 );
               })}
             </nav>
           )}
+
 
           {/* Action Icons */}
           <div className="flex items-center space-x-3 sm:space-x-6">
@@ -132,7 +136,9 @@ export default function Navbar() {
             {!isAdmin && (
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-brand-dark md:hidden hover:text-brand-orange transition-luxury"
+                aria-expanded={mobileMenuOpen}
+                aria-label="Toggle Navigation Menu"
+                className="p-2 text-brand-dark md:hidden hover:text-brand-orange focus:outline-none focus:ring-2 focus:ring-brand-green/20 rounded transition-luxury cursor-pointer"
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -144,7 +150,7 @@ export default function Navbar() {
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && !isAdmin && (
         <div className="md:hidden glass-panel border-t border-brand-dark/5 animate-reveal-up py-6 px-4">
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col space-y-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -152,11 +158,12 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`text-base font-semibold tracking-wider uppercase py-2 border-b border-brand-dark/5 ${
+                  className={`text-xs font-bold tracking-widest uppercase py-3 border-b border-brand-dark/5 flex justify-between items-center transition-luxury ${
                     isActive ? "text-brand-orange" : "text-brand-dark/80"
                   }`}
                 >
-                  {link.name}
+                  <span>{link.name}</span>
+                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />}
                 </Link>
               );
             })}
