@@ -19,10 +19,12 @@ export default function Navbar() {
   const isAdmin = pathname?.startsWith("/admin");
 
   const navLinks = [
+    { name: "Home", href: "/" },
     { name: "Shop Collection", href: "/shop" },
     { name: "Our Story", href: "/about" },
     { name: "Contact Us", href: "/contact" }
   ];
+
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#FDFBF7]/90 backdrop-blur-md border-b border-[#2A211C]/5 transition-luxury print:hidden">
