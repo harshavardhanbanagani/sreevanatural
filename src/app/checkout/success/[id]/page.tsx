@@ -264,17 +264,8 @@ export default function OrderSuccessPage() {
               </div>
             </div>
           </div>
-
-          {/* Decorative Barcode Watermark (Screen only) */}
-          <div className="flex flex-col items-center justify-center pt-8 border-t border-dashed border-brand-dark/10 mt-8 print:hidden">
-            <span className="font-mono text-xl tracking-[0.3em] text-brand-dark/40 font-light select-none">
-              ||||| | |||| ||| | ||| ||||| | ||
-            </span>
-            <span className="text-[8px] font-mono tracking-[0.25em] text-brand-dark/40 uppercase mt-1.5">
-              * Thank you for eating pure organic *
-            </span>
-          </div>
         </div>
+
 
 
         {/* Footer Actions (Screen only) */}

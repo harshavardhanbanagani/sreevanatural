@@ -1,13 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useApp } from "@/context/AppContext";
+
 import { Lock, Mail, User, ShieldCheck, ArrowRight, ArrowLeft, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 
 export default function AuthPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectParam = searchParams?.get("redirect") || null;
   const { currentUser, loginUser, registerUser } = useApp();
   
   const [isSignUp, setIsSignUp] = useState(false);
@@ -24,10 +27,10 @@ export default function AuthPage() {
       if (currentUser.role === "admin") {
         router.push("/admin");
       } else {
-        router.push("/account");
+        router.push(redirectParam || "/account");
       }
     }
-  }, [currentUser, router]);
+  }, [currentUser, router, redirectParam]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,13 +53,14 @@ export default function AuthPage() {
       } else {
         const res = loginUser(email, password);
         if (res.success) {
-          const target = email.toLowerCase().trim() === "admin@sreevanaturals.com" ? "/admin" : "/account";
+          const target = email.toLowerCase().trim() === "admin@sreevanaturals.com" ? "/admin" : (redirectParam || "/account");
           router.push(target);
         }
       }
       setLoading(false);
     }, 1000);
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-brand-bg text-brand-dark px-4 py-16">

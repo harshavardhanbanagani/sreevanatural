@@ -123,7 +123,31 @@ export default function CheckoutPage() {
     );
   }
 
+  if (!currentUser) {
+    return (
+      <div className="py-24 max-w-md mx-auto text-center bg-brand-bg text-brand-dark min-h-screen flex flex-col justify-center items-center px-6">
+        <div className="p-4 bg-brand-green/5 text-brand-green rounded-full mb-6">
+          <ShieldCheck className="w-12 h-12" />
+        </div>
+        <h2 className="font-serif-luxury text-2xl font-bold text-brand-green mb-3">Secure Checkout Lock</h2>
+        <p className="text-sm font-light text-brand-dark/70 leading-relaxed mb-8">
+          We require a verified customer session to secure your harvest shipping tracks. Please sign in or register to complete your order.
+        </p>
+        <Link
+          href="/auth?redirect=/checkout"
+          className="w-full py-4 bg-brand-green hover:bg-brand-green-hover text-brand-bg text-xs font-bold uppercase tracking-widest rounded-full transition-luxury shadow-lg shadow-brand-green/10 text-center"
+        >
+          Sign In / Create Account
+        </Link>
+        <Link href="/cart" className="text-xs uppercase tracking-wider text-brand-dark/50 hover:text-brand-orange mt-6 font-semibold transition-colors">
+          Return to Shopping Cart
+        </Link>
+      </div>
+    );
+  }
+
   return (
+
     <div className="py-16 bg-brand-bg text-brand-dark min-h-screen relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
