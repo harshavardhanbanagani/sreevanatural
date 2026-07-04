@@ -168,7 +168,7 @@ export default function AdminOrdersPage() {
             {/* Invoice Body Content */}
             <div className="p-8 space-y-6 bg-white">
               
-              <div className="grid grid-cols-2 gap-6 text-xs font-light leading-relaxed">
+              <div className="grid grid-cols-2 gap-6 text-xs font-light leading-relaxed print-avoid-break">
                 <div>
                   <h4 className="font-serif-luxury font-bold text-brand-green text-sm uppercase tracking-wide border-b border-brand-dark/5 pb-1 mb-2">
                     Shipping Details
@@ -190,21 +190,21 @@ export default function AdminOrdersPage() {
 
               {/* Items List Table */}
               <div className="border border-brand-dark/5 rounded-xl overflow-hidden mt-6">
-                <div className="p-3 bg-brand-green text-brand-bg text-[9px] uppercase tracking-wider font-semibold grid grid-cols-12 gap-3">
+                <div className="p-3 bg-brand-green text-brand-bg text-[9px] uppercase tracking-wider font-semibold grid grid-cols-12 gap-3 print-avoid-break">
                   <span className="col-span-8">Product Name</span>
                   <span className="col-span-2 text-center">Qty</span>
                   <span className="col-span-2 text-right">Subtotal</span>
                 </div>
                 <div className="divide-y divide-brand-dark/5 p-3 space-y-3">
                   {selectedOrder.items.map((item) => (
-                    <div key={item.productId} className="grid grid-cols-12 gap-3 items-center text-xs font-light py-1">
+                    <div key={item.productId} className="grid grid-cols-12 gap-3 items-center text-xs font-light py-1 item-row">
                       <span className="col-span-8 font-serif-luxury font-bold text-brand-green">{item.name}</span>
                       <span className="col-span-2 text-center font-bold">{item.quantity}</span>
                       <span className="col-span-2 text-right font-bold text-brand-green">₹{item.price * item.quantity}</span>
                     </div>
                   ))}
                 </div>
-                <div className="p-4 bg-brand-cream border-t border-brand-dark/5 space-y-2.5 text-xs text-brand-dark/85 font-light">
+                <div className="p-4 bg-brand-cream border-t border-brand-dark/5 space-y-2.5 text-xs text-brand-dark/85 font-light print-avoid-break">
                   <div className="flex justify-between">
                     <span>Items Subtotal</span>
                     <span>₹{selectedOrder.subtotal}</span>

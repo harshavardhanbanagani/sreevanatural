@@ -166,7 +166,7 @@ export default function OrderSuccessPage() {
           {/* Invoice Grid Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {/* Shipping Address */}
-            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:bg-[#FAF6EE] print:border print:border-[#2B4C3F]/20">
+            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:bg-[#FAF6EE] print:border print:border-[#2B4C3F]/20 print-avoid-break">
               <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3 print:text-[#2B4C3F] print:border-[#2B4C3F]/20">
                 Shipping Destination
               </h4>
@@ -180,7 +180,7 @@ export default function OrderSuccessPage() {
             </div>
 
             {/* Payment & Invoice meta */}
-            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:bg-[#FAF6EE] print:border print:border-[#2B4C3F]/20">
+            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:bg-[#FAF6EE] print:border print:border-[#2B4C3F]/20 print-avoid-break">
               <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3 print:text-[#2B4C3F] print:border-[#2B4C3F]/20">
                 Payment & Invoice Details
               </h4>
@@ -209,7 +209,7 @@ export default function OrderSuccessPage() {
 
           {/* Invoice Summary Items Table */}
           <div className="bg-brand-cream border border-brand-dark/5 rounded-2xl overflow-hidden print:bg-transparent print:border print:border-[#2B4C3F]/20">
-            <div className="p-4 bg-brand-green text-brand-bg text-[10px] uppercase tracking-wider font-semibold grid grid-cols-12 gap-4 print:bg-[#2B4C3F] print:text-white">
+            <div className="p-4 bg-brand-green text-brand-bg text-[10px] uppercase tracking-wider font-semibold grid grid-cols-12 gap-4 print:bg-[#2B4C3F] print:text-white print-avoid-break">
               <span className="col-span-6">Harvest Item</span>
               <span className="col-span-2 text-center">Unit Price</span>
               <span className="col-span-2 text-center">Qty</span>
@@ -218,7 +218,7 @@ export default function OrderSuccessPage() {
 
             <div className="divide-y divide-brand-dark/5 p-4 space-y-4 bg-white print:bg-transparent print:divide-y print:divide-[#2B4C3F]/10">
               {order.items.map((item) => (
-                <div key={item.productId} className="grid grid-cols-12 gap-4 items-center text-xs font-light py-2 print:text-[#1B1815]">
+                <div key={item.productId} className="grid grid-cols-12 gap-4 items-center text-xs font-light py-2 print:text-[#1B1815] item-row">
                   <div className="col-span-6 flex items-center gap-3">
                     <div className="relative w-10 h-10 bg-brand-bg border border-brand-dark/5 p-0.5 rounded flex-shrink-0 print:hidden">
                       <Image
@@ -239,7 +239,7 @@ export default function OrderSuccessPage() {
               ))}
             </div>
 
-            <div className="p-6 bg-brand-cream border-t border-brand-dark/5 space-y-3 text-xs text-brand-dark/85 font-light print:bg-[#FAF6EE] print:border-t-2 print:border-[#2B4C3F] print:text-[#1B1815]">
+            <div className="p-6 bg-brand-cream border-t border-brand-dark/5 space-y-3 text-xs text-brand-dark/85 font-light print:bg-[#FAF6EE] print:border-t-2 print:border-[#2B4C3F] print:text-[#1B1815] print-avoid-break">
               <div className="flex justify-between">
                 <span className="print:text-[#1B1815]/80">Items Subtotal</span>
                 <span className="font-semibold print:font-mono">₹{order.subtotal}</span>

@@ -129,5 +129,28 @@ html[data-scroll-behavior="smooth"] {
   .print-invoice-container .print-hide {
     display: none !important;
   }
+  /* Page break rules for clean multi-page invoice printing */
+  .print-invoice-container .print-avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  .print-invoice-container .item-row {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  /* Font size overrides to make it highly legible */
+  .print-invoice-container {
+    font-size: 13.5px !important;
+  }
+  .print-invoice-container h1,
+  .print-invoice-container h2,
+  .print-invoice-container h3,
+  .print-invoice-container h4 {
+    font-size: 17px !important;
+  }
+  .print-invoice-container h5,
+  .print-invoice-container h6 {
+    font-size: 14.5px !important;
+  }
 }
 
