@@ -275,8 +275,19 @@ export default function OrderSuccessPage() {
                 />
               </div>
             </div>
+
+            {/* Printable Barcode (Only visible when printing) */}
+            <div className="hidden print:flex flex-col items-center justify-center pt-8 border-t border-dashed border-brand-dark/15 mt-8">
+              <span className="font-mono text-xl tracking-[0.3em] text-brand-dark/50 font-light select-none">
+                ||||| | |||| ||| | ||| ||||| | ||
+              </span>
+              <span className="text-[8px] font-mono tracking-[0.25em] text-brand-dark/50 uppercase mt-1.5">
+                * Thank you for choosing Sreeva Naturals *
+              </span>
+            </div>
           </div>
         </div>
+
 
 
 

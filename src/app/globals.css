@@ -117,11 +117,11 @@ html[data-scroll-behavior="smooth"] {
     min-height: 0 !important;
     box-shadow: none !important;
     border: none !important;
-    background: white !important;
-    color: black !important;
-    padding: 0 !important;
-    margin: 0 !important;
     overflow: visible !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   .print-invoice-container select,
   .print-invoice-container input,
@@ -129,27 +129,5 @@ html[data-scroll-behavior="smooth"] {
   .print-invoice-container .print-hide {
     display: none !important;
   }
-  .print-invoice-container div,
-  .print-invoice-container table,
-  .print-invoice-container thead,
-  .print-invoice-container tbody,
-  .print-invoice-container tr,
-  .print-invoice-container td,
-  .print-invoice-container th {
-    background-color: transparent !important;
-    background-image: none !important;
-    border-color: #9ca3af !important;
-  }
-  .print-invoice-container span,
-  .print-invoice-container p,
-  .print-invoice-container h1,
-  .print-invoice-container h2,
-  .print-invoice-container h3,
-  .print-invoice-container h4,
-  .print-invoice-container h5,
-  .print-invoice-container h6 {
-    color: black !important;
-  }
 }
-
 
