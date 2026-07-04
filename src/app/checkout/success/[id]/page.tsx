@@ -82,8 +82,17 @@ export default function OrderSuccessPage() {
           <p className="text-sm font-light text-brand-dark/75">
             Your purchase supports traditional wood-press extractions and indigenous farming communities.
           </p>
-          <div className="inline-block bg-brand-cream border border-brand-dark/5 px-6 py-2 rounded-full text-xs font-semibold uppercase tracking-wider">
-            Order Reference: <span className="text-brand-orange font-bold">{order.id}</span>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
+            <div className="inline-block bg-brand-cream border border-brand-dark/5 px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+              Order Reference: <span className="text-brand-orange font-bold">{order.id}</span>
+            </div>
+            <button
+              onClick={handlePrintInvoice}
+              className="px-6 py-2.5 bg-brand-orange hover:bg-brand-orange-hover text-brand-bg text-xs font-bold uppercase tracking-widest rounded-full transition-luxury flex items-center justify-center gap-1.5 shadow-md shadow-brand-orange/15 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <Printer className="w-4 h-4" />
+              <span>Print Invoice Receipt</span>
+            </button>
           </div>
         </div>
 
