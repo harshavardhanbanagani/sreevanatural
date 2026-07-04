@@ -4,11 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useApp } from "@/context/AppContext";
-import { Heart, ShoppingBag, ArrowRight, ShieldCheck, Award, Leaf, Zap, Star, Sparkles, Globe } from "lucide-react";
+import { Heart, ShoppingBag, ArrowRight, ShieldCheck, Award, Leaf, Zap, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-
-
 
 export default function Homepage() {
   const { products, addToCart, toggleWishlist, isInWishlist, reviews } = useApp();
@@ -87,131 +84,131 @@ export default function Homepage() {
 
       {/* MAIN HOMEPAGE CONTENT */}
       <div className="relative overflow-hidden">
-        {/* LUXURY EDITORIAL HERO SECTION */}
-        <section className="relative h-[95vh] flex items-center bg-[#F7F3ED] text-[#1F1A17] overflow-hidden">
-          
-          {/* Cinematic Background Image */}
-          <div className="absolute inset-0 z-0 select-none">
+        {/* HERO SECTION */}
+        <section className="relative h-[92vh] flex items-center bg-brand-dark text-brand-bg overflow-hidden">
+          {/* Farm Background Image with professional cinematic grading and camera glide */}
+          <div className="absolute inset-0 z-0">
             <motion.div
-              initial={{ scale: 1.05, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 3.5, ease: "easeOut" }}
+              initial={{ scale: 1.16, x: "-3%", y: "-1.5%", opacity: 0 }}
+              animate={{ scale: 1.05, x: "0%", y: "0%", opacity: 0.94 }}
+              transition={{ duration: 7.0, ease: "easeOut" }}
               className="absolute inset-0"
             >
+              {/* Widescreen Landscape Image (Desktop) */}
               <Image
-                src="/luxury_hero_bg.png"
-                alt="Luxury Organic Background"
+                src="/hero_bg.jpg"
+                alt="Sreeva Organic Farms"
                 fill
-                className="object-cover object-center"
+                className="hidden sm:block object-cover object-center brightness-[0.85] contrast-[1.08] saturate-[1.12]"
+                priority
+              />
+              {/* Portrait Image (Mobile) */}
+              <Image
+                src="/hero_mobile.jpg"
+                alt="Sreeva Organic Farms Mobile"
+                fill
+                className="block sm:hidden object-cover object-center brightness-[0.85] contrast-[1.08] saturate-[1.12]"
                 priority
               />
             </motion.div>
+
             
-            {/* Elegant vignette overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#F7F3ED]/85 via-[#F7F3ED]/30 to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#F7F3ED] to-transparent z-10 pointer-events-none" />
+            {/* Cinematic Golden Hour Sunlight Glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_15%,rgba(242,120,75,0.18)_0%,rgba(0,0,0,0)_60%)] z-10 pointer-events-none mix-blend-screen" />
+            
+            {/* Soft Edge Film Vignette */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_50%,rgba(0,0,0,0.45)_100%)] z-10 pointer-events-none mix-blend-multiply" />
+            
+            {/* Subtle left gradient overlay just for typography readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/25 to-transparent z-10 pointer-events-none" />
           </div>
 
+
+
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-2xl text-left flex flex-col items-start space-y-8">
-              
-              {/* Brand Tagline */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-                className="flex items-center gap-2"
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-[#6B7A4B]" />
-                <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-[#6B7A4B] font-sans">
-                  Sreeva Organic Heritage
-                </span>
-              </motion.div>
-
-              {/* Headline */}
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 1.0 }}
-                className="font-serif-luxury text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] tracking-wide text-[#1F1A17] max-w-lg"
-              >
-                PURE TRADITION.<br />
-                REFINED FOR<br />
-                <span className="text-[#B86B2D]">MODERN WELLNESS.</span>
-              </motion.h2>
-
-              {/* Supporting Copy */}
+            <div className="max-w-xl text-left flex flex-col items-start">
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="text-xs sm:text-sm font-light text-[#4A433C] leading-relaxed max-w-md"
+                transition={{ delay: 0.3, duration: 0.8 }}
+                className="flex items-center gap-2 text-brand-orange uppercase tracking-[0.3em] text-[10px] sm:text-[11px] font-bold mb-4"
               >
-                Farm-direct ingredients crafted through traditional wood-pressed extraction methods, preserving purity, nutrients and natural wellness.
+                <Leaf className="w-3.5 h-3.5 animate-pulse text-brand-orange" />
+                <span>100% Farm Direct & Wood-Pressed</span>
               </motion.p>
 
-              {/* CTAs */}
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 1.0 }}
+                className="font-serif-luxury text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-wide mb-6"
+              >
+                Pure Tradition.<br />
+                <span className="italic text-brand-orange relative inline-block">
+                  Bottled
+                  <span className="absolute bottom-1.5 left-0 w-full h-[3px] bg-brand-orange/30 rounded-full" />
+                </span> For Modern Life.
+              </motion.h2>
+
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.8 }}
+                className="text-xs sm:text-sm font-light text-brand-bg/85 leading-relaxed mb-8"
+              >
+                Handcrafted wellness extracts from native soil. Sourced directly from our organic farms and extracted using traditional wood-pressing methods to preserve molecular purity and natural health-giving enzymes.
+              </motion.p>
+
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-                className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto pt-2"
+                transition={{ delay: 0.9, duration: 0.8 }}
+                className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
               >
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full sm:w-auto"
+                >
                   <Link
                     href="/shop"
-                    className="w-full sm:w-auto text-center px-8 py-4 bg-[#B86B2D] hover:bg-[#a05a22] text-[#FDFBF7] text-xs font-bold uppercase tracking-widest rounded-full transition-luxury flex items-center justify-center gap-2 shadow-lg shadow-[#B86B2D]/20 cursor-pointer"
+                    className="w-full sm:w-auto text-center px-8 py-4 bg-brand-orange hover:bg-brand-orange-hover text-brand-bg text-xs font-bold uppercase tracking-widest rounded-full transition-luxury flex items-center justify-center gap-2 shadow-lg shadow-brand-orange/25"
                   >
                     <span>Shop Collection</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </motion.div>
                 
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full sm:w-auto"
+                >
                   <Link
                     href="/about"
-                    className="w-full sm:w-auto text-center px-8 py-4 border border-[#4A433C]/30 hover:bg-[#4A433C]/5 text-[#4A433C] text-xs font-bold uppercase tracking-widest rounded-full transition-luxury flex items-center justify-center cursor-pointer"
+                    className="w-full sm:w-auto text-center px-8 py-4 border border-brand-bg/30 hover:bg-brand-bg hover:text-brand-dark text-xs font-bold uppercase tracking-widest rounded-full transition-luxury flex items-center justify-center"
                   >
                     Our Story
                   </Link>
                 </motion.div>
               </motion.div>
-
-              {/* Minimal Trust Indicators Section */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.0, duration: 1.0 }}
-                className="grid grid-cols-2 md:flex md:items-center gap-x-6 gap-y-3 pt-8 border-t border-[#4A433C]/10 w-full text-[10px] font-bold uppercase tracking-widest text-[#4A433C]/75"
-              >
-                <div className="flex items-center gap-2">
-                  <Leaf className="w-4 h-4 text-[#6B7A4B] flex-shrink-0" />
-                  <span>100% Natural</span>
-                </div>
-                <div className="hidden md:block w-px h-3 bg-[#4A433C]/10" />
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#6B7A4B] flex-shrink-0" />
-                  <span>Wood Pressed</span>
-                </div>
-                <div className="hidden md:block w-px h-3 bg-[#4A433C]/10" />
-                <div className="flex items-center gap-2">
-                  <Globe className="w-4 h-4 text-[#6B7A4B] flex-shrink-0" />
-                  <span>Farm Direct</span>
-                </div>
-                <div className="hidden md:block w-px h-3 bg-[#4A433C]/10" />
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#6B7A4B] flex-shrink-0" />
-                  <span>Chemical Free</span>
-                </div>
-              </motion.div>
-
             </div>
           </div>
 
-          {/* Smooth Fade Transition bottom edge */}
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#FDFBF7] to-transparent z-10 pointer-events-none" />
-        </section>
 
+          {/* Bottom Inverted Organic Curve (Subtle & Flattened) */}
+          <div className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none">
+            <svg
+              viewBox="0 0 1440 100"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-full h-auto min-h-[45px] text-brand-bg fill-current translate-y-[2px]"
+              preserveAspectRatio="none"
+            >
+              <path d="M0,96 Q720,72 1440,96 L1440,100 L0,100 Z"></path>
+            </svg>
+          </div>
+        </section>
 
 
 
