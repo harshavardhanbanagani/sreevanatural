@@ -163,10 +163,33 @@ export default function OrderSuccessPage() {
             <span>official ticket</span>
           </div>
 
+          {/* Print-only Invoice Letterhead Header */}
+          <div className="hidden print:flex justify-between items-center border-b-2 border-brand-green pb-6 mb-8 bg-white">
+            <div className="flex items-center gap-4">
+              <div className="relative w-28 h-10 flex-shrink-0">
+                <Image
+                  src="/logo.png"
+                  alt="Sreeva Naturals Logo"
+                  fill
+                  className="object-contain object-left"
+                />
+              </div>
+              <div>
+                <h1 className="font-serif-luxury text-2xl font-bold text-brand-green">SREEVA NATURALS</h1>
+                <p className="text-[10px] uppercase tracking-widest text-brand-orange font-semibold font-sans">From Nature To Nourishment</p>
+              </div>
+            </div>
+            <div className="text-right text-xs text-brand-dark/70 font-sans">
+              <p className="font-bold text-brand-green text-sm font-serif-luxury uppercase tracking-wider">Retail Invoice</p>
+              <p>Order ID: {order.id}</p>
+              <p>Date: {order.date}</p>
+            </div>
+          </div>
+
           {/* Invoice Grid Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {/* Shipping Address */}
-            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:border print:border-gray-200">
+            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:bg-transparent print:border print:border-gray-200">
               <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3">
                 Shipping Destination
               </h4>
@@ -180,18 +203,18 @@ export default function OrderSuccessPage() {
             </div>
 
             {/* Payment & Invoice meta */}
-            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:border print:border-gray-200">
+            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:bg-transparent print:border print:border-gray-200">
               <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3">
                 Payment & Invoice Details
               </h4>
               <div className="text-xs space-y-2 font-light">
                 <div className="flex justify-between">
                   <span className="text-brand-dark/65">Order Date</span>
-                  <span className="font-semibold">{order.date}</span>
+                  <span className="font-semibold text-brand-green">{order.date}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-brand-dark/65">Payment Method</span>
-                  <span className="font-semibold">{order.paymentMethod}</span>
+                  <span className="font-semibold text-brand-green">{order.paymentMethod}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-brand-dark/65">Payment Status</span>
@@ -208,7 +231,7 @@ export default function OrderSuccessPage() {
           </div>
 
           {/* Invoice Summary Items Table */}
-          <div className="bg-brand-cream border border-brand-dark/5 rounded-2xl overflow-hidden print:border print:border-gray-200">
+          <div className="bg-brand-cream border border-brand-dark/5 rounded-2xl overflow-hidden print:bg-transparent print:border print:border-gray-200">
             <div className="p-4 bg-brand-green text-brand-bg text-[10px] uppercase tracking-wider font-semibold grid grid-cols-12 gap-4">
               <span className="col-span-6">Harvest Item</span>
               <span className="col-span-2 text-center">Unit Price</span>
@@ -216,7 +239,7 @@ export default function OrderSuccessPage() {
               <span className="col-span-2 text-right">Subtotal</span>
             </div>
 
-            <div className="divide-y divide-brand-dark/5 p-4 space-y-4 bg-white">
+            <div className="divide-y divide-brand-dark/5 p-4 space-y-4 bg-white print:bg-transparent">
               {order.items.map((item) => (
                 <div key={item.productId} className="grid grid-cols-12 gap-4 items-center text-xs font-light py-2">
                   <div className="col-span-6 flex items-center gap-3">
@@ -239,7 +262,7 @@ export default function OrderSuccessPage() {
               ))}
             </div>
 
-            <div className="p-6 bg-brand-cream border-t border-brand-dark/5 space-y-3 text-xs text-brand-dark/85 font-light print:border-t">
+            <div className="p-6 bg-brand-cream border-t border-brand-dark/5 space-y-3 text-xs text-brand-dark/85 font-light print:bg-transparent print:border-t">
               <div className="flex justify-between">
                 <span>Items Subtotal</span>
                 <span className="font-semibold">₹{order.subtotal}</span>
@@ -263,30 +286,9 @@ export default function OrderSuccessPage() {
                 <span className="text-lg">₹{order.total}</span>
               </div>
             </div>
-
-            {/* Printable Logo Watermark (Faint print seal overlay) */}
-            <div className="hidden print:flex absolute inset-0 items-center justify-center pointer-events-none z-50 opacity-[0.12]">
-              <div className="relative w-96 h-96">
-                <Image
-                  src="/logo.png"
-                  alt="Sreeva Naturals Watermark"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </div>
-
-            {/* Printable Barcode (Only visible when printing) */}
-            <div className="hidden print:flex flex-col items-center justify-center pt-8 border-t border-dashed border-brand-dark/15 mt-8">
-              <span className="font-mono text-xl tracking-[0.3em] text-brand-dark/50 font-light select-none">
-                ||||| | |||| ||| | ||| ||||| | ||
-              </span>
-              <span className="text-[8px] font-mono tracking-[0.25em] text-brand-dark/50 uppercase mt-1.5">
-                * Thank you for choosing Sreeva Naturals *
-              </span>
-            </div>
           </div>
         </div>
+
 
 
 

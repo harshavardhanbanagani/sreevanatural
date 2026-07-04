@@ -232,28 +232,6 @@ export default function AdminOrdersPage() {
 
             </div>
 
-            {/* Printable Logo Watermark (Faint print seal overlay) */}
-            <div className="hidden print:flex absolute inset-0 items-center justify-center pointer-events-none z-50 opacity-[0.12]">
-              <div className="relative w-96 h-96">
-                <Image
-                  src="/logo.png"
-                  alt="Sreeva Naturals Watermark"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </div>
-
-            {/* Printable Barcode (Only visible when printing) */}
-            <div className="hidden print:flex flex-col items-center justify-center pt-8 border-t border-dashed border-brand-dark/15 mt-8">
-              <span className="font-mono text-xl tracking-[0.3em] text-brand-dark/50 font-light select-none">
-                ||||| | |||| ||| | ||| ||||| | ||
-              </span>
-              <span className="text-[8px] font-mono tracking-[0.25em] text-brand-dark/50 uppercase mt-1.5">
-                * Sreeva Naturals Order dispatch code *
-              </span>
-            </div>
-
             {/* Print Footer Notice (Print only) */}
             <div className="hidden print:block text-center text-[10px] text-brand-dark/50 mt-12 border-t border-gray-200 pt-4">
               Thank you for choosing Sreeva Naturals. Organic food extracts settled naturally.
