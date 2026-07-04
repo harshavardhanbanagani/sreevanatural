@@ -50,7 +50,7 @@ export default function OrderSuccessPage() {
 
         
         {/* Print-only Invoice Header */}
-        <div className="hidden print:flex justify-between items-center border-b-2 border-brand-green pb-6 mb-8">
+        <div className="hidden print:flex justify-between items-center border-b-2 border-[#2B4C3F] pb-6 mb-8 bg-white">
           <div className="flex items-center gap-4">
             <div className="relative w-28 h-10 flex-shrink-0">
               <Image
@@ -61,14 +61,14 @@ export default function OrderSuccessPage() {
               />
             </div>
             <div>
-              <h1 className="font-serif text-2xl font-bold text-brand-green">SREEVA NATURALS</h1>
-              <p className="text-[10px] uppercase tracking-widest text-brand-orange font-semibold">From Nature To Nourishment</p>
+              <h1 className="font-serif-luxury text-2xl font-bold text-[#2B4C3F]">SREEVA NATURALS</h1>
+              <p className="text-[10px] uppercase tracking-widest text-[#B86B2D] font-bold font-sans">From Nature To Nourishment</p>
             </div>
           </div>
-          <div className="text-right text-xs text-brand-dark/70">
-            <p className="font-bold text-brand-green">INVOICE</p>
-            <p>Order ID: {order.id}</p>
-            <p>Date: {order.date}</p>
+          <div className="text-right text-xs text-[#1B1815]">
+            <p className="font-bold text-[#2B4C3F] text-sm uppercase tracking-wider">Retail Invoice</p>
+            <p className="font-mono text-[10px] mt-1">Order ID: <span className="font-bold">{order.id}</span></p>
+            <p className="font-mono text-[10px]">Date: {order.date}</p>
           </div>
         </div>
 
@@ -166,39 +166,39 @@ export default function OrderSuccessPage() {
           {/* Invoice Grid Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {/* Shipping Address */}
-            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:bg-transparent print:border print:border-gray-200">
-              <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3">
+            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:bg-[#FAF6EE] print:border print:border-[#2B4C3F]/20">
+              <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3 print:text-[#2B4C3F] print:border-[#2B4C3F]/20">
                 Shipping Destination
               </h4>
-              <div className="text-xs space-y-1 font-light leading-relaxed">
-                <p className="font-bold text-brand-green">{order.customerName}</p>
-                <p className="text-brand-dark/85">{order.address}</p>
-                <p className="text-brand-dark/85">{order.city} - {order.postalCode}</p>
-                <p className="text-brand-dark/70 mt-3">Phone: {order.customerPhone}</p>
-                <p className="text-brand-dark/70">Email: {order.customerEmail}</p>
+              <div className="text-xs space-y-1 font-light leading-relaxed print:text-[#1B1815]">
+                <p className="font-bold text-brand-green print:text-[#2B4C3F]">{order.customerName}</p>
+                <p className="text-brand-dark/85 print:text-[#1B1815]/90">{order.address}</p>
+                <p className="text-brand-dark/85 print:text-[#1B1815]/90">{order.city} - {order.postalCode}</p>
+                <p className="text-brand-dark/70 mt-3 print:text-[#1B1815]/80">Phone: {order.customerPhone}</p>
+                <p className="text-brand-dark/70 print:text-[#1B1815]/80">Email: {order.customerEmail}</p>
               </div>
             </div>
 
             {/* Payment & Invoice meta */}
-            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:bg-transparent print:border print:border-gray-200">
-              <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3">
+            <div className="bg-brand-cream border border-brand-dark/5 p-6 rounded-2xl print:bg-[#FAF6EE] print:border print:border-[#2B4C3F]/20">
+              <h4 className="font-serif-luxury text-sm font-bold uppercase tracking-wider text-brand-green border-b border-brand-dark/5 pb-2 mb-3 print:text-[#2B4C3F] print:border-[#2B4C3F]/20">
                 Payment & Invoice Details
               </h4>
-              <div className="text-xs space-y-2 font-light">
+              <div className="text-xs space-y-2 font-light print:text-[#1B1815]">
                 <div className="flex justify-between">
-                  <span className="text-brand-dark/65">Order Date</span>
-                  <span className="font-semibold text-brand-green">{order.date}</span>
+                  <span className="text-brand-dark/65 print:text-[#1B1815]/70">Order Date</span>
+                  <span className="font-semibold text-brand-green print:text-[#2B4C3F]">{order.date}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-brand-dark/65">Payment Method</span>
-                  <span className="font-semibold text-brand-green">{order.paymentMethod}</span>
+                  <span className="text-brand-dark/65 print:text-[#1B1815]/70">Payment Method</span>
+                  <span className="font-semibold text-brand-green print:text-[#2B4C3F]">{order.paymentMethod}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-brand-dark/65">Payment Status</span>
-                  <span className="text-green-700 font-bold uppercase tracking-wider text-[10px]">Paid</span>
+                  <span className="text-brand-dark/65 print:text-[#1B1815]/70">Payment Status</span>
+                  <span className="text-green-700 font-bold uppercase tracking-wider text-[10px] print:text-green-800">Paid</span>
                 </div>
                 {order.couponCode && (
-                  <div className="flex justify-between text-brand-orange">
+                  <div className="flex justify-between text-brand-orange print:text-[#B86B2D]">
                     <span>Promo Code Applied</span>
                     <span className="font-bold">{order.couponCode}</span>
                   </div>
@@ -208,17 +208,17 @@ export default function OrderSuccessPage() {
           </div>
 
           {/* Invoice Summary Items Table */}
-          <div className="bg-brand-cream border border-brand-dark/5 rounded-2xl overflow-hidden print:bg-transparent print:border print:border-gray-200">
-            <div className="p-4 bg-brand-green text-brand-bg text-[10px] uppercase tracking-wider font-semibold grid grid-cols-12 gap-4">
+          <div className="bg-brand-cream border border-brand-dark/5 rounded-2xl overflow-hidden print:bg-transparent print:border print:border-[#2B4C3F]/20">
+            <div className="p-4 bg-brand-green text-brand-bg text-[10px] uppercase tracking-wider font-semibold grid grid-cols-12 gap-4 print:bg-[#2B4C3F] print:text-white">
               <span className="col-span-6">Harvest Item</span>
               <span className="col-span-2 text-center">Unit Price</span>
               <span className="col-span-2 text-center">Qty</span>
               <span className="col-span-2 text-right">Subtotal</span>
             </div>
 
-            <div className="divide-y divide-brand-dark/5 p-4 space-y-4 bg-white print:bg-transparent">
+            <div className="divide-y divide-brand-dark/5 p-4 space-y-4 bg-white print:bg-transparent print:divide-y print:divide-[#2B4C3F]/10">
               {order.items.map((item) => (
-                <div key={item.productId} className="grid grid-cols-12 gap-4 items-center text-xs font-light py-2">
+                <div key={item.productId} className="grid grid-cols-12 gap-4 items-center text-xs font-light py-2 print:text-[#1B1815]">
                   <div className="col-span-6 flex items-center gap-3">
                     <div className="relative w-10 h-10 bg-brand-bg border border-brand-dark/5 p-0.5 rounded flex-shrink-0 print:hidden">
                       <Image
@@ -229,38 +229,38 @@ export default function OrderSuccessPage() {
                       />
                     </div>
                     <div>
-                      <h5 className="font-serif-luxury font-bold text-brand-green">{item.name}</h5>
+                      <h5 className="font-serif-luxury font-bold text-brand-green print:text-[#2B4C3F]">{item.name}</h5>
                     </div>
                   </div>
-                  <span className="col-span-2 text-center">₹{item.price}</span>
-                  <span className="col-span-2 text-center font-bold">{item.quantity}</span>
-                  <span className="col-span-2 text-right font-bold text-brand-green">₹{item.price * item.quantity}</span>
+                  <span className="col-span-2 text-center print:font-mono">₹{item.price}</span>
+                  <span className="col-span-2 text-center font-bold print:font-mono">{item.quantity}</span>
+                  <span className="col-span-2 text-right font-bold text-brand-green print:text-[#2B4C3F] print:font-mono">₹{item.price * item.quantity}</span>
                 </div>
               ))}
             </div>
 
-            <div className="p-6 bg-brand-cream border-t border-brand-dark/5 space-y-3 text-xs text-brand-dark/85 font-light print:bg-transparent print:border-t">
+            <div className="p-6 bg-brand-cream border-t border-brand-dark/5 space-y-3 text-xs text-brand-dark/85 font-light print:bg-[#FAF6EE] print:border-t-2 print:border-[#2B4C3F] print:text-[#1B1815]">
               <div className="flex justify-between">
-                <span>Items Subtotal</span>
-                <span className="font-semibold">₹{order.subtotal}</span>
+                <span className="print:text-[#1B1815]/80">Items Subtotal</span>
+                <span className="font-semibold print:font-mono">₹{order.subtotal}</span>
               </div>
               {order.discount > 0 && (
-                <div className="flex justify-between text-brand-orange font-medium">
+                <div className="flex justify-between text-brand-orange font-medium print:text-[#B86B2D]">
                   <span>Discount Code</span>
-                  <span>- ₹{order.discount}</span>
+                  <span className="print:font-mono">- ₹{order.discount}</span>
                 </div>
               )}
               <div className="flex justify-between">
-                <span>GST ({settings.taxRate}%)</span>
-                <span className="font-semibold">₹{order.tax}</span>
+                <span className="print:text-[#1B1815]/80">GST ({settings.taxRate}%)</span>
+                <span className="font-semibold print:font-mono">₹{order.tax}</span>
               </div>
               <div className="flex justify-between">
-                <span>Shipping & Handling</span>
-                <span>{order.shipping === 0 ? "FREE" : `₹${order.shipping}`}</span>
+                <span className="print:text-[#1B1815]/80">Shipping & Handling</span>
+                <span className="print:font-mono">{order.shipping === 0 ? "FREE" : `₹${order.shipping}`}</span>
               </div>
-              <div className="flex justify-between items-end border-t border-brand-dark/5 pt-3 text-sm font-bold text-brand-green">
+              <div className="flex justify-between items-end border-t border-brand-dark/5 pt-3 text-sm font-bold text-brand-green print:border-t print:border-[#2B4C3F]/20 print:text-[#2B4C3F]">
                 <span className="font-serif-luxury text-base">Grand Total Paid</span>
-                <span className="text-lg">₹{order.total}</span>
+                <span className="text-lg print:font-mono">₹{order.total}</span>
               </div>
             </div>
           </div>
