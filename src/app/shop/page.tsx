@@ -310,93 +310,128 @@ export default function ShopPage() {
       {/* QUICK VIEW MODAL OVERLAY */}
       {quickViewProduct && (
         <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-brand-dark/50 backdrop-blur-sm p-4">
-          <div className="bg-brand-bg rounded-2xl max-w-3xl w-full border border-brand-dark/10 overflow-hidden shadow-2xl relative animate-reveal-up max-h-[90vh] overflow-y-auto">
+          <div className="bg-brand-bg rounded-2xl max-w-3xl w-full border border-brand-dark/10 overflow-hidden shadow-2xl relative animate-reveal-up max-h-[95vh] overflow-y-auto">
             
-            {/* Close */}
+            {/* Close button */}
             <button
               onClick={() => setQuickViewProduct(null)}
-              className="absolute top-4 right-4 p-2 bg-brand-cream/80 hover:bg-brand-orange hover:text-brand-bg text-brand-dark rounded-full transition-luxury z-10"
+              className="absolute top-4 right-4 p-2 bg-brand-cream/80 hover:bg-brand-orange hover:text-brand-bg text-brand-dark rounded-full transition-all duration-300 z-10 cursor-pointer shadow-sm"
+              aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="grid grid-cols-1 md:grid-cols-2">
               
-              {/* Product Photo */}
-              <div className="relative aspect-square md:h-full bg-brand-cream p-8 flex items-center justify-center">
-                <Image
-                  src={quickViewProduct.image}
-                  alt={quickViewProduct.name}
-                  width={400}
-                  height={400}
-                  className="object-contain max-h-[300px]"
-                />
+              {/* Product Photo panel */}
+              <div className="relative aspect-square md:aspect-auto md:min-h-[420px] bg-gradient-to-br from-[#FAF6EE] to-[#F3EFE9] p-10 flex items-center justify-center overflow-hidden group">
+                {/* Floating Category Badge */}
+                <span className="absolute top-6 left-6 z-10 bg-brand-green text-brand-bg text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-sm">
+                  {quickViewProduct.category === "Oils" ? "🪵 Cold Pressed" : quickViewProduct.category === "Ghee" ? "🥛 Traditional A2" : "🍯 Raw Wild"}
+                </span>
+                
+                <div className="relative w-64 h-64 sm:w-72 sm:h-72 transition-transform duration-700 ease-out group-hover:scale-105">
+                  <Image
+                    src={quickViewProduct.image}
+                    alt={quickViewProduct.name}
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
               </div>
 
-              {/* Product Info */}
-              <div className="p-8 space-y-6 flex flex-col justify-between">
-                <div>
-                  <span className="text-xs uppercase tracking-widest text-brand-orange font-bold">
-                    {quickViewProduct.category}
-                  </span>
-                  <h2 className="font-serif-luxury text-2xl font-bold text-brand-green mt-1">
-                    {quickViewProduct.name}
-                  </h2>
-
-                  <div className="flex items-center gap-1.5 mt-2">
-                    <div className="flex text-[#D4AF37]">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-3.5 h-3.5 ${
-                            i < Math.floor(quickViewProduct.rating) ? "fill-brand-gold text-brand-gold" : "text-gray-300"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-xs text-brand-dark/70 font-semibold">
-                      ({quickViewProduct.reviewsCount} reviews)
+              {/* Product Info panel */}
+              <div className="p-8 sm:p-10 space-y-6 flex flex-col justify-between bg-white text-brand-dark">
+                <div className="space-y-4">
+                  <div>
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-brand-orange font-bold">
+                      {quickViewProduct.category} Collection
                     </span>
+                    <h2 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-brand-green mt-1">
+                      {quickViewProduct.name}
+                    </h2>
+
+                    {/* Rating details */}
+                    <div className="flex items-center gap-2 mt-2.5">
+                      <div className="flex text-[#D4AF37]">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-3.5 h-3.5 ${
+                              i < Math.floor(quickViewProduct.rating) ? "fill-brand-gold text-brand-gold" : "text-gray-300"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-xs text-brand-dark/65 font-semibold">
+                        {quickViewProduct.rating} ({quickViewProduct.reviewsCount} verified reviews)
+                      </span>
+                    </div>
                   </div>
 
-                  <p className="text-sm font-light text-brand-dark/80 mt-4 leading-relaxed">
+                  {/* Description */}
+                  <p className="text-xs font-light text-brand-dark/80 leading-relaxed">
                     {quickViewProduct.description}
                   </p>
 
-                  <div className="mt-4 space-y-1.5">
-                    <p className="text-xs font-bold text-brand-green uppercase tracking-wider">Benefits:</p>
-                    <ul className="text-xs text-brand-dark/75 list-disc pl-4 font-light space-y-0.5">
-                      {quickViewProduct.benefits.slice(0, 2).map((b, i) => (
-                        <li key={i}>{b}</li>
+                  {/* Benefits Tag chips */}
+                  <div className="space-y-2 pt-2">
+                    <span className="text-[10px] uppercase tracking-wider font-bold text-brand-dark/65 block">Key Benefits:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {quickViewProduct.benefits.slice(0, 3).map((b, i) => (
+                        <span key={i} className="text-[10px] font-medium text-brand-green bg-brand-green/5 border border-brand-green/10 px-3 py-1 rounded-full">
+                          ✓ {b}
+                        </span>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-brand-dark/5">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-2xl font-bold text-brand-green">₹{quickViewProduct.price}</span>
-                    <span className="text-xs text-brand-dark/60">
-                      Stock: <span className="font-bold text-brand-dark">{quickViewProduct.stock} items</span>
-                    </span>
+                {/* Pricing & Add to Cart */}
+                <div className="pt-6 border-t border-brand-dark/5 space-y-4">
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <span className="text-[9px] uppercase tracking-wider text-brand-dark/50 block">Harvest Price</span>
+                      <span className="text-3xl font-bold text-brand-green">₹{quickViewProduct.price}</span>
+                    </div>
+                    <div className="text-right text-xs text-brand-dark/65">
+                      <span>Inventory: </span>
+                      {quickViewProduct.stock > 0 ? (
+                        <span className="text-green-700 font-bold uppercase text-[10px]">{quickViewProduct.stock} Available</span>
+                      ) : (
+                        <span className="text-red-700 font-bold uppercase text-[10px]">Sold Out</span>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="flex gap-4">
+                  <div className="flex gap-3">
                     <button
                       disabled={quickViewProduct.stock === 0}
                       onClick={() => handleAddToCart(quickViewProduct.id)}
-                      className={`flex-grow flex items-center justify-center gap-2 py-3 text-sm font-bold uppercase tracking-wider rounded-lg transition-luxury ${
+                      className={`flex-grow flex items-center justify-center gap-2 py-3.5 text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-md ${
                         quickViewProduct.stock === 0
-                          ? "bg-brand-dark/15 text-brand-dark/45 cursor-not-allowed"
-                          : "bg-brand-green hover:bg-brand-green-hover text-brand-bg"
+                          ? "bg-brand-dark/15 text-brand-dark/45 cursor-not-allowed shadow-none"
+                          : addedNotify === quickViewProduct.id
+                          ? "bg-[#4ade80] text-brand-bg shadow-[#4ade80]/10"
+                          : "bg-brand-green hover:bg-brand-green-hover text-brand-bg hover:shadow-lg hover:shadow-brand-green/15 cursor-pointer"
                       }`}
                     >
-                      <ShoppingBag className="w-4 h-4" />
-                      <span>Add to Cart</span>
+                      {addedNotify === quickViewProduct.id ? (
+                        <>
+                          <Check className="w-4 h-4 animate-bounce" />
+                          <span>Added to Cart</span>
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingBag className="w-4 h-4" />
+                          <span>Add to Cart</span>
+                        </>
+                      )}
                     </button>
                     <Link
                       href={`/product/${quickViewProduct.id}`}
-                      className="px-4 py-3 border border-brand-green/20 text-brand-green hover:bg-brand-cream rounded-lg text-sm font-bold uppercase tracking-wider text-center transition-luxury"
+                      className="px-6 py-3.5 border border-brand-green/20 text-brand-green hover:bg-brand-cream rounded-xl text-xs font-bold uppercase tracking-widest text-center transition-colors shadow-sm"
                     >
                       Details
                     </Link>
