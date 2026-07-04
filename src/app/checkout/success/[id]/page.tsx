@@ -163,29 +163,6 @@ export default function OrderSuccessPage() {
             <span>official ticket</span>
           </div>
 
-          {/* Print-only Invoice Letterhead Header */}
-          <div className="hidden print:flex justify-between items-center border-b-2 border-brand-green pb-6 mb-8 bg-white">
-            <div className="flex items-center gap-4">
-              <div className="relative w-28 h-10 flex-shrink-0">
-                <Image
-                  src="/logo.png"
-                  alt="Sreeva Naturals Logo"
-                  fill
-                  className="object-contain object-left"
-                />
-              </div>
-              <div>
-                <h1 className="font-serif-luxury text-2xl font-bold text-brand-green">SREEVA NATURALS</h1>
-                <p className="text-[10px] uppercase tracking-widest text-brand-orange font-semibold font-sans">From Nature To Nourishment</p>
-              </div>
-            </div>
-            <div className="text-right text-xs text-brand-dark/70 font-sans">
-              <p className="font-bold text-brand-green text-sm font-serif-luxury uppercase tracking-wider">Retail Invoice</p>
-              <p>Order ID: {order.id}</p>
-              <p>Date: {order.date}</p>
-            </div>
-          </div>
-
           {/* Invoice Grid Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {/* Shipping Address */}
