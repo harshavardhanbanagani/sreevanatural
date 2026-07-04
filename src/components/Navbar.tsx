@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import { useApp } from "@/context/AppContext";
 import { ShoppingBag, Heart, Menu, X, User, Settings, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -148,28 +150,36 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu Drawer */}
-      {mobileMenuOpen && !isAdmin && (
-        <div className="md:hidden glass-panel border-t border-brand-dark/5 animate-reveal-up py-6 px-4">
-          <div className="flex flex-col space-y-2">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-xs font-bold tracking-widest uppercase py-3 border-b border-brand-dark/5 flex justify-between items-center transition-luxury ${
-                    isActive ? "text-brand-orange" : "text-brand-dark/80"
-                  }`}
-                >
-                  <span>{link.name}</span>
-                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {mobileMenuOpen && !isAdmin && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="md:hidden glass-panel border-t border-brand-dark/5 overflow-hidden py-6 px-4"
+          >
+            <div className="flex flex-col space-y-2">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-xs font-bold tracking-widest uppercase py-3 border-b border-brand-dark/5 flex justify-between items-center transition-luxury ${
+                      isActive ? "text-brand-orange" : "text-brand-dark/80"
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />}
+                  </Link>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

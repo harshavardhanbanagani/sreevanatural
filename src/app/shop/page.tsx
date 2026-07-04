@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useApp, Product } from "@/context/AppContext";
 import { Heart, ShoppingBag, Search, SlidersHorizontal, Star, Eye, X, Check } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
 
 export default function ShopPage() {
   const { products, addToCart, toggleWishlist, isInWishlist } = useApp();
@@ -201,252 +203,276 @@ export default function ShopPage() {
                 <p className="text-sm text-brand-dark/60 font-light">Try adjusting your filters or search queries.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {filteredProducts.map((prod) => (
-                  <div
-                    key={prod.id}
-                    className="bg-brand-cream border border-brand-dark/5 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-brand-dark/5 transition-luxury group flex flex-col h-full"
-                  >
-                    {/* Image container */}
-                    <div className="relative aspect-square w-full bg-brand-cream overflow-hidden">
-                      <Image
-                        src={prod.image}
-                        alt={prod.name}
-                        fill
-                        className="object-contain p-4 group-hover:scale-105 transition-transform duration-700"
-                      />
-                      {/* Floating actions */}
-                      <button
-                        onClick={() => toggleWishlist(prod.id)}
-                        className="absolute top-4 right-4 p-2 bg-brand-bg/85 backdrop-blur-sm rounded-full shadow-md text-brand-dark/60 hover:text-brand-orange hover:scale-105 transition-luxury z-10"
-                      >
-                        <Heart
-                          className={`w-4 h-4 ${isInWishlist(prod.id) ? "fill-brand-orange text-brand-orange" : ""}`}
+              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <AnimatePresence mode="popLayout">
+                  {filteredProducts.map((prod) => (
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.3 }}
+                      key={prod.id}
+                      className="bg-brand-cream border border-brand-dark/5 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-brand-dark/5 transition-luxury group flex flex-col h-full"
+                    >
+                      {/* Image container */}
+                      <div className="relative aspect-square w-full bg-brand-cream overflow-hidden">
+                        <Image
+                          src={prod.image}
+                          alt={prod.name}
+                          fill
+                          className="object-contain p-4 group-hover:scale-105 transition-transform duration-700"
                         />
-                      </button>
-
-                      {/* Quick view hover button */}
-                      <button
-                        onClick={() => setQuickViewProduct(prod)}
-                        className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-2 bg-brand-bg/95 hover:bg-brand-orange hover:text-brand-bg text-xs font-semibold uppercase tracking-wider rounded-lg shadow-md transition-luxury opacity-0 group-hover:opacity-100 z-10"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                        <span>Quick View</span>
-                      </button>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-5 flex flex-col flex-grow bg-brand-bg">
-                      <span className="text-[10px] uppercase tracking-widest text-brand-orange font-semibold mb-1">
-                        {prod.category}
-                      </span>
-                      <h3 className="font-serif-luxury text-base font-bold mb-2 group-hover:text-brand-green transition-colors">
-                        <Link href={`/product/${prod.id}`}>{prod.name}</Link>
-                      </h3>
-
-                      <div className="flex items-center gap-1 mb-4">
-                        <div className="flex text-[#D4AF37]">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              className={`w-3 h-3 ${
-                                i < Math.floor(prod.rating) ? "fill-brand-gold text-brand-gold" : "text-gray-300"
-                              }`}
-                            />
-                          ))}
-                        </div>
-                        <span className="text-[10px] text-brand-dark/60 font-semibold">({prod.reviewsCount})</span>
-                      </div>
-
-                      {/* Stock indicator */}
-                      <div className="mb-4">
-                        {prod.stock === 0 ? (
-                          <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-red-150 text-red-700 font-bold">
-                            Out of Stock
-                          </span>
-                        ) : prod.stock < 15 ? (
-                          <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-orange-100 text-orange-700 font-bold">
-                            Low Stock: {prod.stock} left
-                          </span>
-                        ) : (
-                          <span className="text-[10px] uppercase tracking-wider text-green-700 font-bold">
-                            In Stock
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="mt-auto flex items-center justify-between pt-4 border-t border-brand-dark/5">
-                        <span className="text-base font-bold text-brand-green">₹{prod.price}</span>
+                        {/* Floating actions */}
                         <button
-                          disabled={prod.stock === 0}
-                          onClick={() => handleAddToCart(prod.id)}
-                          className={`flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg transition-luxury ${
-                            prod.stock === 0
-                              ? "bg-brand-dark/10 text-brand-dark/45 cursor-not-allowed"
-                              : addedNotify === prod.id
-                              ? "bg-[#4ade80] text-brand-bg"
-                              : "bg-brand-green hover:bg-brand-green-hover text-brand-bg"
-                          }`}
+                          onClick={() => toggleWishlist(prod.id)}
+                          className="absolute top-4 right-4 p-2 bg-brand-bg/85 backdrop-blur-sm rounded-full shadow-md text-brand-dark/60 hover:text-brand-orange hover:scale-105 transition-luxury z-10"
                         >
-                          {addedNotify === prod.id ? (
-                            <>
-                              <Check className="w-3.5 h-3.5" />
-                              <span>Added</span>
-                            </>
-                          ) : (
-                            <>
-                              <ShoppingBag className="w-3.5 h-3.5" />
-                              <span>Add to Cart</span>
-                            </>
-                          )}
+                          <Heart
+                            className={`w-4 h-4 ${isInWishlist(prod.id) ? "fill-brand-orange text-brand-orange" : ""}`}
+                          />
+                        </button>
+
+                        {/* Quick view hover button */}
+                        <button
+                          onClick={() => setQuickViewProduct(prod)}
+                          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-2 bg-brand-bg/95 hover:bg-brand-orange hover:text-brand-bg text-xs font-semibold uppercase tracking-wider rounded-lg shadow-md transition-luxury opacity-0 group-hover:opacity-100 z-10"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>Quick View</span>
                         </button>
                       </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+
+                      {/* Content */}
+                      <div className="p-5 flex flex-col flex-grow bg-brand-bg">
+                        <span className="text-[10px] uppercase tracking-widest text-brand-orange font-semibold mb-1">
+                          {prod.category}
+                        </span>
+                        <h3 className="font-serif-luxury text-base font-bold mb-2 group-hover:text-brand-green transition-colors">
+                          <Link href={`/product/${prod.id}`}>{prod.name}</Link>
+                        </h3>
+
+                        <div className="flex items-center gap-1 mb-4">
+                          <div className="flex text-[#D4AF37]">
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                className={`w-3 h-3 ${
+                                  i < Math.floor(prod.rating) ? "fill-brand-gold text-brand-gold" : "text-gray-300"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                          <span className="text-[10px] text-brand-dark/60 font-semibold">({prod.reviewsCount})</span>
+                        </div>
+
+                        {/* Stock indicator */}
+                        <div className="mb-4">
+                          {prod.stock === 0 ? (
+                            <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-red-150 text-red-700 font-bold">
+                              Out of Stock
+                            </span>
+                          ) : prod.stock < 15 ? (
+                            <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded bg-orange-100 text-orange-700 font-bold">
+                              Low Stock: {prod.stock} left
+                            </span>
+                          ) : (
+                            <span className="text-[10px] uppercase tracking-wider text-green-700 font-bold">
+                              In Stock
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="mt-auto flex items-center justify-between pt-4 border-t border-brand-dark/5">
+                          <span className="text-base font-bold text-brand-green">₹{prod.price}</span>
+                          <button
+                            disabled={prod.stock === 0}
+                            onClick={() => handleAddToCart(prod.id)}
+                            className={`flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg transition-luxury ${
+                              prod.stock === 0
+                                ? "bg-brand-dark/10 text-brand-dark/45 cursor-not-allowed"
+                                : addedNotify === prod.id
+                                ? "bg-[#4ade80] text-brand-bg"
+                                : "bg-brand-green hover:bg-brand-green-hover text-brand-bg"
+                            }`}
+                          >
+                            {addedNotify === prod.id ? (
+                              <>
+                                <Check className="w-3.5 h-3.5" />
+                                <span>Added</span>
+                              </>
+                            ) : (
+                              <>
+                                <ShoppingBag className="w-3.5 h-3.5" />
+                                <span>Add</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
             )}
           </div>
         </div>
       </div>
 
       {/* QUICK VIEW MODAL OVERLAY */}
-      {quickViewProduct && (
-        <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-brand-dark/50 backdrop-blur-sm p-4">
-          <div className="bg-brand-bg rounded-2xl max-w-3xl w-full border border-brand-dark/10 overflow-hidden shadow-2xl relative animate-reveal-up max-h-[95vh] overflow-y-auto">
-            
-            {/* Close button */}
-            <button
+      <AnimatePresence>
+        {quickViewProduct && (
+          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setQuickViewProduct(null)}
-              className="absolute top-4 right-4 p-2 bg-brand-cream/80 hover:bg-brand-orange hover:text-brand-bg text-brand-dark rounded-full transition-all duration-300 z-10 cursor-pointer shadow-sm"
-              aria-label="Close modal"
+              className="absolute inset-0 bg-brand-dark/50 backdrop-blur-sm"
+            />
+            
+            {/* Modal Box */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
+              className="bg-brand-bg rounded-2xl max-w-3xl w-full border border-brand-dark/10 overflow-hidden shadow-2xl relative max-h-[95vh] overflow-y-auto z-10"
             >
-              <X className="w-5 h-5" />
-            </button>
+              {/* Close button */}
+              <button
+                onClick={() => setQuickViewProduct(null)}
+                className="absolute top-4 right-4 p-2 bg-brand-cream/80 hover:bg-brand-orange hover:text-brand-bg text-brand-dark rounded-full transition-all duration-300 z-10 cursor-pointer shadow-sm"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
 
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              
-              {/* Product Photo panel */}
-              <div className="relative aspect-square md:aspect-auto md:min-h-[420px] bg-gradient-to-br from-[#FAF6EE] to-[#F3EFE9] p-10 flex items-center justify-center overflow-hidden group">
-                {/* Floating Category Badge */}
-                <span className="absolute top-6 left-6 z-10 bg-brand-green text-brand-bg text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-sm">
-                  {quickViewProduct.category === "Oils" ? "🪵 Cold Pressed" : quickViewProduct.category === "Ghee" ? "🥛 Traditional A2" : "🍯 Raw Wild"}
-                </span>
+              <div className="grid grid-cols-1 md:grid-cols-2">
                 
-                <div className="relative w-64 h-64 sm:w-72 sm:h-72 transition-transform duration-700 ease-out group-hover:scale-105">
-                  <Image
-                    src={quickViewProduct.image}
-                    alt={quickViewProduct.name}
-                    fill
-                    className="object-contain"
-                    priority
-                  />
+                {/* Product Photo panel */}
+                <div className="relative aspect-square md:aspect-auto md:min-h-[420px] bg-gradient-to-br from-[#FAF6EE] to-[#F3EFE9] p-10 flex items-center justify-center overflow-hidden group">
+                  {/* Floating Category Badge */}
+                  <span className="absolute top-6 left-6 z-10 bg-brand-green text-brand-bg text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-sm">
+                    {quickViewProduct.category === "Oils" ? "🪵 Cold Pressed" : quickViewProduct.category === "Ghee" ? "🥛 Traditional A2" : "🍯 Raw Wild"}
+                  </span>
+                  
+                  <div className="relative w-64 h-64 sm:w-72 sm:h-72 transition-transform duration-700 ease-out group-hover:scale-105">
+                    <Image
+                      src={quickViewProduct.image}
+                      alt={quickViewProduct.name}
+                      fill
+                      className="object-contain"
+                      priority
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* Product Info panel */}
-              <div className="p-8 sm:p-10 space-y-6 flex flex-col justify-between bg-white text-brand-dark">
-                <div className="space-y-4">
-                  <div>
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-brand-orange font-bold">
-                      {quickViewProduct.category} Collection
-                    </span>
-                    <h2 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-brand-green mt-1">
-                      {quickViewProduct.name}
-                    </h2>
+                {/* Product Info panel */}
+                <div className="p-8 sm:p-10 space-y-6 flex flex-col justify-between bg-white text-brand-dark">
+                  <div className="space-y-4">
+                    <div>
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-brand-orange font-bold">
+                        {quickViewProduct.category} Collection
+                      </span>
+                      <h2 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-brand-green mt-1">
+                        {quickViewProduct.name}
+                      </h2>
 
-                    {/* Rating details */}
-                    <div className="flex items-center gap-2 mt-2.5">
-                      <div className="flex text-[#D4AF37]">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-3.5 h-3.5 ${
-                              i < Math.floor(quickViewProduct.rating) ? "fill-brand-gold text-brand-gold" : "text-gray-300"
-                            }`}
-                          />
+                      {/* Rating details */}
+                      <div className="flex items-center gap-2 mt-2.5">
+                        <div className="flex text-[#D4AF37]">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`w-3.5 h-3.5 ${
+                                i < Math.floor(quickViewProduct.rating) ? "fill-brand-gold text-brand-gold" : "text-gray-300"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                        <span className="text-xs text-brand-dark/65 font-semibold">
+                          {quickViewProduct.rating} ({quickViewProduct.reviewsCount} verified reviews)
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-xs font-light text-brand-dark/80 leading-relaxed">
+                      {quickViewProduct.description}
+                    </p>
+
+                    {/* Benefits Tag chips */}
+                    <div className="space-y-2 pt-2">
+                      <span className="text-[10px] uppercase tracking-wider font-bold text-brand-dark/65 block">Key Benefits:</span>
+                      <div className="flex flex-wrap gap-2">
+                        {quickViewProduct.benefits.slice(0, 3).map((b, i) => (
+                          <span key={i} className="text-[10px] font-medium text-brand-green bg-brand-green/5 border border-brand-green/10 px-3 py-1 rounded-full">
+                            ✓ {b}
+                          </span>
                         ))}
                       </div>
-                      <span className="text-xs text-brand-dark/65 font-semibold">
-                        {quickViewProduct.rating} ({quickViewProduct.reviewsCount} verified reviews)
-                      </span>
                     </div>
                   </div>
 
-                  {/* Description */}
-                  <p className="text-xs font-light text-brand-dark/80 leading-relaxed">
-                    {quickViewProduct.description}
-                  </p>
+                  {/* Pricing & Add to Cart */}
+                  <div className="pt-6 border-t border-brand-dark/5 space-y-4">
+                    <div className="flex items-end justify-between">
+                      <div>
+                        <span className="text-[9px] uppercase tracking-wider text-brand-dark/50 block">Harvest Price</span>
+                        <span className="text-3xl font-bold text-brand-green">₹{quickViewProduct.price}</span>
+                      </div>
+                      <div className="text-right text-xs text-brand-dark/65">
+                        <span>Inventory: </span>
+                        {quickViewProduct.stock > 0 ? (
+                          <span className="text-green-700 font-bold uppercase text-[10px]">{quickViewProduct.stock} Available</span>
+                        ) : (
+                          <span className="text-red-700 font-bold uppercase text-[10px]">Sold Out</span>
+                        )}
+                      </div>
+                    </div>
 
-                  {/* Benefits Tag chips */}
-                  <div className="space-y-2 pt-2">
-                    <span className="text-[10px] uppercase tracking-wider font-bold text-brand-dark/65 block">Key Benefits:</span>
-                    <div className="flex flex-wrap gap-2">
-                      {quickViewProduct.benefits.slice(0, 3).map((b, i) => (
-                        <span key={i} className="text-[10px] font-medium text-brand-green bg-brand-green/5 border border-brand-green/10 px-3 py-1 rounded-full">
-                          ✓ {b}
-                        </span>
-                      ))}
+                    <div className="flex gap-3">
+                      <button
+                        disabled={quickViewProduct.stock === 0}
+                        onClick={() => handleAddToCart(quickViewProduct.id)}
+                        className={`flex-grow flex items-center justify-center gap-2 py-3.5 text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-md ${
+                          quickViewProduct.stock === 0
+                            ? "bg-brand-dark/15 text-brand-dark/45 cursor-not-allowed shadow-none"
+                            : addedNotify === quickViewProduct.id
+                            ? "bg-[#4ade80] text-brand-bg shadow-[#4ade80]/10"
+                            : "bg-brand-green hover:bg-brand-green-hover text-brand-bg hover:shadow-lg hover:shadow-brand-green/15 cursor-pointer"
+                        }`}
+                      >
+                        {addedNotify === quickViewProduct.id ? (
+                          <>
+                            <Check className="w-4 h-4 animate-bounce" />
+                            <span>Added to Cart</span>
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingBag className="w-4 h-4" />
+                            <span>Add to Cart</span>
+                          </>
+                        )}
+                      </button>
+                      <Link
+                        href={`/product/${quickViewProduct.id}`}
+                        className="px-6 py-3.5 border border-brand-green/20 text-brand-green hover:bg-brand-cream rounded-xl text-xs font-bold uppercase tracking-widest text-center transition-colors shadow-sm"
+                      >
+                        Details
+                      </Link>
                     </div>
                   </div>
-                </div>
 
-                {/* Pricing & Add to Cart */}
-                <div className="pt-6 border-t border-brand-dark/5 space-y-4">
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <span className="text-[9px] uppercase tracking-wider text-brand-dark/50 block">Harvest Price</span>
-                      <span className="text-3xl font-bold text-brand-green">₹{quickViewProduct.price}</span>
-                    </div>
-                    <div className="text-right text-xs text-brand-dark/65">
-                      <span>Inventory: </span>
-                      {quickViewProduct.stock > 0 ? (
-                        <span className="text-green-700 font-bold uppercase text-[10px]">{quickViewProduct.stock} Available</span>
-                      ) : (
-                        <span className="text-red-700 font-bold uppercase text-[10px]">Sold Out</span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex gap-3">
-                    <button
-                      disabled={quickViewProduct.stock === 0}
-                      onClick={() => handleAddToCart(quickViewProduct.id)}
-                      className={`flex-grow flex items-center justify-center gap-2 py-3.5 text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-md ${
-                        quickViewProduct.stock === 0
-                          ? "bg-brand-dark/15 text-brand-dark/45 cursor-not-allowed shadow-none"
-                          : addedNotify === quickViewProduct.id
-                          ? "bg-[#4ade80] text-brand-bg shadow-[#4ade80]/10"
-                          : "bg-brand-green hover:bg-brand-green-hover text-brand-bg hover:shadow-lg hover:shadow-brand-green/15 cursor-pointer"
-                      }`}
-                    >
-                      {addedNotify === quickViewProduct.id ? (
-                        <>
-                          <Check className="w-4 h-4 animate-bounce" />
-                          <span>Added to Cart</span>
-                        </>
-                      ) : (
-                        <>
-                          <ShoppingBag className="w-4 h-4" />
-                          <span>Add to Cart</span>
-                        </>
-                      )}
-                    </button>
-                    <Link
-                      href={`/product/${quickViewProduct.id}`}
-                      className="px-6 py-3.5 border border-brand-green/20 text-brand-green hover:bg-brand-cream rounded-xl text-xs font-bold uppercase tracking-widest text-center transition-colors shadow-sm"
-                    >
-                      Details
-                    </Link>
-                  </div>
                 </div>
 
               </div>
-
-            </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
 
       {/* Sticky Mobile Filter Button (Screen Only) */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 lg:hidden animate-reveal-up print:hidden">

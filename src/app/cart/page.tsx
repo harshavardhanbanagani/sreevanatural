@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useApp } from "@/context/AppContext";
 import { Trash2, ShoppingBag, Plus, Minus, ArrowRight, Ticket, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
 
 export default function CartPage() {
   const {
@@ -111,68 +113,76 @@ export default function CartPage() {
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-brand-cream border border-brand-dark/5 rounded-2xl overflow-hidden shadow-sm">
               <div className="divide-y divide-brand-dark/5">
-                {cartItems.map((item) => (
-                  <div key={item.id} className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-                    
-                    {/* Left: Product details */}
-                    <div className="flex items-center gap-4">
-                      <div className="relative w-20 h-20 bg-brand-bg border border-brand-dark/5 p-2 rounded-xl flex-shrink-0">
-                        <Image
-                          src={item.image}
-                          alt={item.name}
-                          fill
-                          className="object-contain"
-                        />
-                      </div>
-                      <div>
-                        <span className="text-[9px] uppercase tracking-wider text-brand-orange font-bold">
-                          {item.category}
-                        </span>
-                        <h4 className="font-serif-luxury text-base font-bold text-brand-green mt-0.5">
-                          <Link href={`/product/${item.id}`}>{item.name}</Link>
-                        </h4>
-                        <span className="text-xs font-bold text-brand-dark/60 mt-1 block">
-                          ₹{item.price} each
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Middle & Right: Quantity & Subtotals */}
-                    <div className="flex items-center justify-between sm:justify-end gap-8">
-                      {/* Quantity Selector */}
-                      <div className="flex items-center border border-brand-dark/10 rounded-lg bg-brand-bg px-1">
-                        <button
-                          onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
-                          className="p-1.5 hover:text-brand-orange transition-luxury"
-                        >
-                          <Minus className="w-3.5 h-3.5" />
-                        </button>
-                        <span className="w-8 text-center text-xs font-bold">{item.quantity}</span>
-                        <button
-                          onClick={() => updateCartQuantity(item.id, item.quantity + 1)}
-                          className="p-1.5 hover:text-brand-green transition-luxury"
-                        >
-                          <Plus className="w-3.5 h-3.5" />
-                        </button>
+                <AnimatePresence initial={false}>
+                  {cartItems.map((item) => (
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      key={item.id}
+                      className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-6 overflow-hidden border-b border-brand-dark/5"
+                    >
+                      {/* Left: Product details */}
+                      <div className="flex items-center gap-4">
+                        <div className="relative w-20 h-20 bg-brand-bg border border-brand-dark/5 p-2 rounded-xl flex-shrink-0">
+                          <Image
+                            src={item.image}
+                            alt={item.name}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <div>
+                          <span className="text-[9px] uppercase tracking-wider text-brand-orange font-bold">
+                            {item.category}
+                          </span>
+                          <h4 className="font-serif-luxury text-base font-bold text-brand-green mt-0.5">
+                            <Link href={`/product/${item.id}`}>{item.name}</Link>
+                          </h4>
+                          <span className="text-xs font-bold text-brand-dark/60 mt-1 block">
+                            ₹{item.price} each
+                          </span>
+                        </div>
                       </div>
 
-                      {/* Line Subtotal */}
-                      <div className="text-right">
-                        <span className="text-sm font-bold text-brand-green block">
-                          ₹{item.price * item.quantity}
-                        </span>
-                        <button
-                          onClick={() => removeFromCart(item.id)}
-                          className="text-[10px] text-red-500 hover:text-red-700 font-bold uppercase tracking-wider mt-1 inline-flex items-center gap-1 transition-luxury"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                          <span>Remove</span>
-                        </button>
-                      </div>
-                    </div>
+                      {/* Middle & Right: Quantity & Subtotals */}
+                      <div className="flex items-center justify-between sm:justify-end gap-8">
+                        {/* Quantity Selector */}
+                        <div className="flex items-center border border-brand-dark/10 rounded-lg bg-brand-bg px-1">
+                          <button
+                            onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
+                            className="p-1.5 hover:text-brand-orange transition-luxury"
+                          >
+                            <Minus className="w-3.5 h-3.5" />
+                          </button>
+                          <span className="w-8 text-center text-xs font-bold">{item.quantity}</span>
+                          <button
+                            onClick={() => updateCartQuantity(item.id, item.quantity + 1)}
+                            className="p-1.5 hover:text-brand-green transition-luxury"
+                          >
+                            <Plus className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
 
-                  </div>
-                ))}
+                        {/* Line Subtotal */}
+                        <div className="text-right">
+                          <span className="text-sm font-bold text-brand-green block">
+                            ₹{item.price * item.quantity}
+                          </span>
+                          <button
+                            onClick={() => removeFromCart(item.id)}
+                            className="text-[10px] text-red-500 hover:text-red-700 font-bold uppercase tracking-wider mt-1 inline-flex items-center gap-1 transition-luxury"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                            <span>Remove</span>
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </div>
             </div>
 
