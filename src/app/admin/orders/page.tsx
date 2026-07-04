@@ -233,7 +233,7 @@ export default function AdminOrdersPage() {
             </div>
 
             {/* Printable Logo Watermark (Faint print seal overlay) */}
-            <div className="hidden print:flex absolute inset-0 items-center justify-center pointer-events-none z-50 opacity-[0.04] mix-blend-multiply">
+            <div className="hidden print:flex absolute inset-0 items-center justify-center pointer-events-none z-50 opacity-[0.12]">
               <div className="relative w-96 h-96">
                 <Image
                   src="/logo.png"
