@@ -70,34 +70,35 @@ export default function CustomCursor() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[999999] hidden lg:block">
-      {/* Custom Green Arrow Cursor image aligned to top-left tip */}
+      {/* Custom Three-Leaf Brand Cursor image centered on coordinates */}
       <motion.div
         style={{
           x: cursorX,
           y: cursorY,
-          translateX: "-6px", // Offset slightly to align the exact visual tip of the green arrow with the coordinate hotspot
-          translateY: "-6px",
+          translateX: "-50%",
+          translateY: "-50%",
         }}
         animate={{
-          scale: isHovered ? 1.15 : 1,
+          scale: isHovered ? 1.25 : 1,
+          rotate: isHovered ? 15 : 0,
         }}
-        transition={{ type: "spring", stiffness: 400, damping: 25 }}
-        className="absolute w-14 h-14 pointer-events-none select-none z-10"
+        transition={{ type: "spring", stiffness: 450, damping: 24 }}
+        className="absolute w-10 h-10 pointer-events-none select-none z-10"
       >
         <div className="relative w-full h-full">
-          {/* Subtle glow behind the cursor when hovering over active elements */}
+          {/* Subtle glow behind the leaf cursor when hovering over active elements */}
           {isHovered && (
             <motion.div
               layoutId="cursorGlow"
-              className="absolute inset-0 bg-brand-green/20 rounded-full filter blur-md -z-10"
+              className="absolute inset-0 bg-brand-green/15 rounded-full filter blur-md -z-10"
               initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1.2, opacity: 1 }}
-              transition={{ duration: 0.2 }}
+              animate={{ scale: 1.25, opacity: 1 }}
+              transition={{ duration: 0.25 }}
             />
           )}
           <Image
-            src="/custom_cursor.png"
-            alt="Sreeva Custom Cursor"
+            src="/custom_cursor.jpg"
+            alt="Sreeva Custom Leaf Cursor"
             fill
             className="object-contain"
             priority
@@ -105,7 +106,7 @@ export default function CustomCursor() {
         </div>
       </motion.div>
 
-      {/* Subtle organic green trailing dot for premium response feeling */}
+      {/* Trailing follow ring that morphs into a gold circular halo on active hovers */}
       <motion.div
         style={{
           x: cursorXSpring,
@@ -114,10 +115,12 @@ export default function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovered ? 1.6 : 1,
-          backgroundColor: isHovered ? "#B86B2D" : "rgba(43, 76, 63, 0.25)",
+          scale: isHovered ? 2.4 : 1,
+          borderColor: isHovered ? "#B86B2D" : "rgba(43, 76, 63, 0.25)",
+          borderWidth: isHovered ? "1.5px" : "1px",
+          backgroundColor: isHovered ? "transparent" : "rgba(43, 76, 63, 0.05)"
         }}
-        className="w-3 h-3 rounded-full absolute pointer-events-none transition-colors duration-250 blur-[0.5px]"
+        className="w-8 h-8 rounded-full border absolute pointer-events-none transition-all duration-200"
       />
     </div>
   );

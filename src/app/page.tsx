@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useApp } from "@/context/AppContext";
 import { Heart, ShoppingBag, ArrowRight, ShieldCheck, Award, Leaf, Zap, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import FallingLeaves from "@/components/FallingLeaves";
 
 export default function Homepage() {
   const { products, addToCart, toggleWishlist, isInWishlist, reviews } = useApp();
@@ -124,64 +125,8 @@ export default function Homepage() {
             {/* Subtle left gradient overlay just for typography readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/25 to-transparent z-10 pointer-events-none" />
 
-            {/* Continuous Loop Floating Leaf Ornaments (Desktop only) */}
-            <div className="absolute inset-0 z-15 overflow-hidden pointer-events-none hidden md:block">
-              {/* Leaf 1 */}
-              <motion.div
-                initial={{ opacity: 0, x: "75vw", y: "20vh" }}
-                animate={{ 
-                  opacity: [0.15, 0.35, 0.15],
-                  y: ["20vh", "16vh", "20vh"],
-                  rotate: [0, 15, -15, 0]
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 8.5,
-                  ease: "easeInOut"
-                }}
-                className="absolute text-brand-orange"
-              >
-                <Leaf className="w-8 h-8 fill-current" />
-              </motion.div>
-
-              {/* Leaf 2 */}
-              <motion.div
-                initial={{ opacity: 0, x: "85vw", y: "60vh" }}
-                animate={{ 
-                  opacity: [0.1, 0.25, 0.1],
-                  y: ["60vh", "64vh", "60vh"],
-                  rotate: [0, -20, 20, 0]
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 11,
-                  ease: "easeInOut",
-                  delay: 1.5
-                }}
-                className="absolute text-[#FAF6EE]/30"
-              >
-                <Leaf className="w-10 h-10 transform -scale-x-100" />
-              </motion.div>
-
-              {/* Leaf 3 */}
-              <motion.div
-                initial={{ opacity: 0, x: "65vw", y: "45vh" }}
-                animate={{ 
-                  opacity: [0.08, 0.2, 0.08],
-                  y: ["45vh", "42vh", "45vh"],
-                  rotate: [15, 35, 15, 15]
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 9.5,
-                  ease: "easeInOut",
-                  delay: 0.5
-                }}
-                className="absolute text-brand-green/45"
-              >
-                <Leaf className="w-6 h-6" />
-              </motion.div>
-            </div>
+            {/* Dynamic wind-swayed falling leaf particle streams */}
+            <FallingLeaves />
           </div>
 
 
