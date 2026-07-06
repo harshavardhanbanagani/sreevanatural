@@ -322,12 +322,6 @@ export default function Homepage() {
                         className={`w-4 h-4 ${isInWishlist(prod.id) ? "fill-brand-orange text-brand-orange" : ""}`}
                       />
                     </button>
-
-                    {/* Quick view hover indicator */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-2 bg-brand-bg/95 text-brand-dark hover:bg-brand-orange hover:text-brand-bg text-xs font-semibold uppercase tracking-wider rounded-lg shadow-md transition-luxury opacity-0 group-hover:opacity-100 z-10">
-                      <Eye className="w-3.5 h-3.5" />
-                      <span>Quick View</span>
-                    </div>
                   </div>
 
                   {/* Body info */}
