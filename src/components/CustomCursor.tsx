@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import Image from "next/image";
 
 export default function CustomCursor() {
   const [mounted, setMounted] = useState(false);
@@ -69,7 +70,7 @@ export default function CustomCursor() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[999999] hidden lg:block">
-      {/* Inner instant following dot */}
+      {/* Logo image centered pointer */}
       <motion.div
         style={{
           x: cursorX,
@@ -78,13 +79,24 @@ export default function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovered ? 1.5 : 1,
-          backgroundColor: isHovered ? "#B86B2D" : "#2B4C3F",
+          scale: isHovered ? 1.25 : 1,
+          rotate: isHovered ? -4 : 0,
         }}
-        className="w-2 h-2 rounded-full absolute"
-      />
+        transition={{ type: "spring", stiffness: 350, damping: 22 }}
+        className="absolute w-16 h-8 pointer-events-none select-none z-10 flex items-center justify-center bg-brand-bg/90 border border-brand-green/20 shadow-md shadow-brand-green/5 rounded-md px-1.5 py-1"
+      >
+        <div className="relative w-full h-full">
+          <Image
+            src="/logo.png"
+            alt="Sreeva Cursor"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+      </motion.div>
 
-      {/* Outer floating follow ring */}
+      {/* Oval shape follow spring ring */}
       <motion.div
         style={{
           x: cursorXSpring,
@@ -93,11 +105,11 @@ export default function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovered ? 2.0 : 1,
-          borderColor: isHovered ? "#B86B2D" : "rgba(43, 76, 63, 0.4)",
+          scale: isHovered ? 1.5 : 1,
+          borderColor: isHovered ? "#B86B2D" : "rgba(43, 76, 63, 0.25)",
           borderWidth: isHovered ? "2px" : "1px",
         }}
-        className="w-8 h-8 rounded-full border absolute transition-all duration-200"
+        className="w-20 h-11 rounded-lg border absolute transition-all duration-200"
       />
     </div>
   );
