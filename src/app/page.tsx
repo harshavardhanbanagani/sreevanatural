@@ -11,11 +11,11 @@ export default function Homepage() {
   const { products, addToCart, toggleWishlist, isInWishlist, reviews } = useApp();
   const [showSplash, setShowSplash] = useState(true);
 
-  // Splash Screen auto-redirect after 600ms for premium load speed
+  // Splash Screen auto-redirect after 1200ms to allow curtain split animation to resolve fully
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 600);
+    }, 1200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -30,55 +30,78 @@ export default function Homepage() {
       {/* SPLASH SCREEN */}
       <AnimatePresence>
         {showSplash && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
-            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[radial-gradient(circle_at_center,rgba(253,251,247,1)_0%,rgba(244,240,230,1)_100%)] text-brand-dark px-4"
-          >
-            {/* Logo Cinematic Zoom Reveal */}
-            <div className="text-center">
-              <motion.div
-                initial={{ scale: 0.90, opacity: 0 }}
-                animate={{ scale: 1.03, opacity: 1 }}
-                transition={{ duration: 1.0, ease: "easeOut" }}
-                className="relative w-72 h-24 sm:w-[450px] sm:h-[150px] mx-auto flex items-center justify-center"
-              >
-                <Image
-                  src="/logo.png"
-                  alt="Sreeva Naturals"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </motion.div>
+          <div className="fixed inset-0 z-[9999] overflow-hidden pointer-events-none">
+            {/* Left Sliding Curtain */}
+            <motion.div
+              initial={{ x: "0%" }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.95, ease: [0.85, 0, 0.15, 1] }}
+              className="absolute inset-y-0 left-0 w-1/2 bg-[#2B4C3F] border-r border-[#FAF6EE]/5"
+            />
+            {/* Right Sliding Curtain */}
+            <motion.div
+              initial={{ x: "0%" }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.95, ease: [0.85, 0, 0.15, 1] }}
+              className="absolute inset-y-0 right-0 w-1/2 bg-[#2B4C3F] border-l border-[#FAF6EE]/5"
+            />
 
-              {/* Minimal Loading Indicator */}
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "160px" }}
-                transition={{ delay: 0.1, duration: 0.8, ease: "easeInOut" }}
-
-                className="h-[1px] bg-brand-green/30 mx-auto mt-8 relative overflow-hidden"
-              >
-                <motion.div 
-                  initial={{ left: "-100%" }}
-                  animate={{ left: "100%" }}
-                  transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-                  className="absolute inset-y-0 w-1/2 bg-brand-orange"
-                />
-              </motion.div>
-            </div>
-
-            {/* Minimal Enter / Skip Link */}
-            <button
-              onClick={() => setShowSplash(false)}
-              className="absolute bottom-12 text-[10px] font-bold uppercase tracking-[0.25em] text-brand-dark/40 hover:text-brand-orange transition-colors"
+            {/* Logo & Slogan Cinematic Overlay */}
+            <motion.div
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.45, ease: "easeInOut" }}
+              className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4"
             >
-              Enter Storefront
-            </button>
+              <div className="text-center space-y-6">
+                {/* Logo Fade Zoom */}
+                <motion.div
+                  initial={{ scale: 0.92, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative w-64 h-20 sm:w-[380px] sm:h-[120px] mx-auto"
+                >
+                  <Image
+                    src="/logo.png"
+                    alt="Sreeva Naturals"
+                    fill
+                    className="object-contain filter invert brightness-[10]"
+                    priority
+                  />
+                </motion.div>
 
+                {/* Sliding Tagline */}
+                <div className="overflow-hidden">
+                  <motion.p
+                    initial={{ y: 25, opacity: 0 }}
+                    animate={{ y: 0, opacity: 0.8 }}
+                    transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
+                    className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-[#FAF6EE]"
+                  >
+                    WOOD PRESSED • FARM DIRECT • PURE
+                  </motion.p>
+                </div>
 
-          </motion.div>
+                {/* Minimal Gold Progress Tracer */}
+                <div className="w-24 h-[1px] bg-[#FAF6EE]/15 mx-auto mt-4 relative overflow-hidden">
+                  <motion.div
+                    initial={{ left: "-100%" }}
+                    animate={{ left: "100%" }}
+                    transition={{ duration: 1.1, ease: "easeInOut" }}
+                    className="absolute inset-y-0 w-1/2 bg-[#B86B2D]"
+                  />
+                </div>
+              </div>
+
+              {/* Skip action button */}
+              <button
+                onClick={() => setShowSplash(false)}
+                className="absolute bottom-12 text-[9px] font-bold uppercase tracking-[0.25em] text-[#FAF6EE]/40 hover:text-[#B86B2D] transition-colors pointer-events-auto cursor-pointer"
+              >
+                Skip Intro
+              </button>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
