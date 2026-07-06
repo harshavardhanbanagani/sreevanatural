@@ -70,25 +70,34 @@ export default function CustomCursor() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[999999] hidden lg:block">
-      {/* Logo image centered pointer */}
+      {/* Custom Green Arrow Cursor image aligned to top-left tip */}
       <motion.div
         style={{
           x: cursorX,
           y: cursorY,
-          translateX: "-50%",
-          translateY: "-50%",
+          translateX: "-6px", // Offset slightly to align the exact visual tip of the green arrow with the coordinate hotspot
+          translateY: "-6px",
         }}
         animate={{
-          scale: isHovered ? 1.25 : 1,
-          rotate: isHovered ? -4 : 0,
+          scale: isHovered ? 1.15 : 1,
         }}
-        transition={{ type: "spring", stiffness: 350, damping: 22 }}
-        className="absolute w-16 h-8 pointer-events-none select-none z-10 flex items-center justify-center bg-brand-bg/90 border border-brand-green/20 shadow-md shadow-brand-green/5 rounded-md px-1.5 py-1"
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+        className="absolute w-14 h-14 pointer-events-none select-none z-10"
       >
         <div className="relative w-full h-full">
+          {/* Subtle glow behind the cursor when hovering over active elements */}
+          {isHovered && (
+            <motion.div
+              layoutId="cursorGlow"
+              className="absolute inset-0 bg-brand-green/20 rounded-full filter blur-md -z-10"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1.2, opacity: 1 }}
+              transition={{ duration: 0.2 }}
+            />
+          )}
           <Image
-            src="/logo.png"
-            alt="Sreeva Cursor"
+            src="/custom_cursor.png"
+            alt="Sreeva Custom Cursor"
             fill
             className="object-contain"
             priority
@@ -96,7 +105,7 @@ export default function CustomCursor() {
         </div>
       </motion.div>
 
-      {/* Oval shape follow spring ring */}
+      {/* Subtle organic green trailing dot for premium response feeling */}
       <motion.div
         style={{
           x: cursorXSpring,
@@ -105,11 +114,10 @@ export default function CustomCursor() {
           translateY: "-50%",
         }}
         animate={{
-          scale: isHovered ? 1.5 : 1,
-          borderColor: isHovered ? "#B86B2D" : "rgba(43, 76, 63, 0.25)",
-          borderWidth: isHovered ? "2px" : "1px",
+          scale: isHovered ? 1.6 : 1,
+          backgroundColor: isHovered ? "#B86B2D" : "rgba(43, 76, 63, 0.25)",
         }}
-        className="w-20 h-11 rounded-lg border absolute transition-all duration-200"
+        className="w-3 h-3 rounded-full absolute pointer-events-none transition-colors duration-250 blur-[0.5px]"
       />
     </div>
   );
