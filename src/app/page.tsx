@@ -115,7 +115,6 @@ export default function Homepage() {
               />
             </motion.div>
 
-            
             {/* Cinematic Golden Hour Sunlight Glow */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_15%,rgba(242,120,75,0.18)_0%,rgba(0,0,0,0)_60%)] z-10 pointer-events-none mix-blend-screen" />
             
@@ -124,6 +123,65 @@ export default function Homepage() {
             
             {/* Subtle left gradient overlay just for typography readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/25 to-transparent z-10 pointer-events-none" />
+
+            {/* Continuous Loop Floating Leaf Ornaments (Desktop only) */}
+            <div className="absolute inset-0 z-15 overflow-hidden pointer-events-none hidden md:block">
+              {/* Leaf 1 */}
+              <motion.div
+                initial={{ opacity: 0, x: "75vw", y: "20vh" }}
+                animate={{ 
+                  opacity: [0.15, 0.35, 0.15],
+                  y: ["20vh", "16vh", "20vh"],
+                  rotate: [0, 15, -15, 0]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 8.5,
+                  ease: "easeInOut"
+                }}
+                className="absolute text-brand-orange"
+              >
+                <Leaf className="w-8 h-8 fill-current" />
+              </motion.div>
+
+              {/* Leaf 2 */}
+              <motion.div
+                initial={{ opacity: 0, x: "85vw", y: "60vh" }}
+                animate={{ 
+                  opacity: [0.1, 0.25, 0.1],
+                  y: ["60vh", "64vh", "60vh"],
+                  rotate: [0, -20, 20, 0]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 11,
+                  ease: "easeInOut",
+                  delay: 1.5
+                }}
+                className="absolute text-[#FAF6EE]/30"
+              >
+                <Leaf className="w-10 h-10 transform -scale-x-100" />
+              </motion.div>
+
+              {/* Leaf 3 */}
+              <motion.div
+                initial={{ opacity: 0, x: "65vw", y: "45vh" }}
+                animate={{ 
+                  opacity: [0.08, 0.2, 0.08],
+                  y: ["45vh", "42vh", "45vh"],
+                  rotate: [15, 35, 15, 15]
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 9.5,
+                  ease: "easeInOut",
+                  delay: 0.5
+                }}
+                className="absolute text-brand-green/45"
+              >
+                <Leaf className="w-6 h-6" />
+              </motion.div>
+            </div>
           </div>
 
 
@@ -198,6 +256,42 @@ export default function Homepage() {
             </div>
           </div>
 
+          {/* Infinite Rotating Luxury Stamp Badge (Desktop only) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ 
+              opacity: 0.5, 
+              scale: 1,
+              rotate: 360 
+            }}
+            whileHover={{ opacity: 0.8 }}
+            transition={{
+              opacity: { delay: 1.1, duration: 1.0 },
+              scale: { delay: 1.1, duration: 1.0 },
+              rotate: { repeat: Infinity, duration: 25, ease: "linear" }
+            }}
+            className="absolute bottom-20 right-8 lg:right-16 z-25 hidden md:block select-none"
+          >
+            <div className="relative flex items-center justify-center">
+              {/* SVG Circular Text */}
+              <svg viewBox="0 0 100 100" className="w-28 h-28 select-none pointer-events-none">
+                <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
+                <text className="text-[8px] font-bold tracking-[0.16em] uppercase fill-[#FAF6EE] font-sans">
+                  <textPath href="#circlePath" startOffset="0%">
+                    • 100% pure & organic • traditional wood pressed
+                  </textPath>
+                </text>
+              </svg>
+              {/* Pulsing center gold leaf icon */}
+              <motion.div 
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
+                className="absolute p-3 bg-[#FAF6EE]/10 border border-[#FAF6EE]/20 rounded-full text-[#B86B2D]"
+              >
+                <Leaf className="w-4 h-4 fill-current" />
+              </motion.div>
+            </div>
+          </motion.div>
 
           {/* Bottom Inverted Organic Curve (Subtle & Flattened) */}
           <div className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none">
