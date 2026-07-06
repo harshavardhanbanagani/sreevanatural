@@ -4,7 +4,6 @@ import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import FallingLeaves from "@/components/FallingLeaves";
 import { usePathname } from "next/navigation";
 
 export default function RootLayout({
@@ -25,7 +24,6 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-brand-bg text-brand-dark">
         <AppProvider>
           <Navbar />
-          {!isAdmin && <FallingLeaves />}
           <main className="flex-grow">{children}</main>
           {!isAdmin && <Footer />}
         </AppProvider>
