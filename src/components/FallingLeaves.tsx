@@ -21,21 +21,21 @@ export default function FallingLeaves() {
   const [leaves, setLeaves] = useState<LeafConfig[]>([]);
 
   useEffect(() => {
-    // Generate 18 unique leaf configurations with randomized wind-drifts
-    const generatedLeaves: LeafConfig[] = Array.from({ length: 18 }).map((_, i) => {
+    // Generate 24 unique leaf configurations with randomized wind-drifts
+    const generatedLeaves: LeafConfig[] = Array.from({ length: 24 }).map((_, i) => {
       const colors = [
-        "text-brand-orange/35", 
-        "text-brand-green/25", 
-        "text-[#FAF6EE]/30",
-        "text-[#B86B2D]/40"
+        "text-brand-orange/70", 
+        "text-brand-green/60", 
+        "text-[#B86B2D]/75",
+        "text-[#5A8272]/65"
       ];
       return {
         id: i,
         left: `${Math.random() * 100}%`,
-        size: Math.floor(Math.random() * 14) + 12, // 12px to 26px size variation
+        size: Math.floor(Math.random() * 16) + 14, // 14px to 30px size variation
         duration: Math.random() * 8 + 8, // 8s to 16s fall speed
-        delay: Math.random() * -16, // Negative delay so leaves are pre-distributed across the viewport instantly on mount
-        opacity: Math.random() * 0.35 + 0.15,
+        delay: Math.random() * -16, // Pre-distributed viewport layout delay
+        opacity: Math.random() * 0.3 + 0.5, // Rich visible opacity values (0.5 to 0.8)
         rotateFrom: Math.random() * 360,
         rotateTo: Math.random() * 360 + 360,
         swingRange: Math.random() * 80 + 30, // Horizontal sway distance
