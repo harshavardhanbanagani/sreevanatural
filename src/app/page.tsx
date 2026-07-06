@@ -4,14 +4,22 @@ import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
-import { useApp } from "@/context/AppContext";
-import { Heart, ShoppingBag, ArrowRight, ShieldCheck, Award, Leaf, Zap, Star } from "lucide-react";
+import { useApp, Product } from "@/context/AppContext";
+import { Heart, ShoppingBag, ArrowRight, ShieldCheck, Award, Leaf, Zap, Star, Eye, X, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Homepage() {
   const { products, addToCart, toggleWishlist, isInWishlist, reviews } = useApp();
   const [showSplash, setShowSplash] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [addedNotify, setAddedNotify] = useState<string | null>(null);
+
+  const handleAddToCart = (productId: string) => {
+    addToCart(productId, 1);
+    setAddedNotify(productId);
+    setTimeout(() => setAddedNotify(null), 2000);
+  };
 
   // Splash Screen auto-redirect after 800ms
   useEffect(() => {
@@ -292,7 +300,10 @@ export default function Homepage() {
                   className="bg-brand-bg border border-brand-dark/5 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-brand-dark/5 transition-luxury group flex flex-col h-full"
                 >
                   {/* Image container */}
-                  <div className="relative aspect-square w-full bg-brand-cream overflow-hidden">
+                  <div 
+                    onClick={() => setQuickViewProduct(prod)}
+                    className="relative aspect-square w-full bg-brand-cream overflow-hidden cursor-pointer"
+                  >
                     <Image
                       src={prod.image}
                       alt={prod.name}
@@ -301,13 +312,22 @@ export default function Homepage() {
                     />
                     {/* Floating Wishlist Button */}
                     <button
-                      onClick={() => toggleWishlist(prod.id)}
-                      className="absolute top-4 right-4 p-2 bg-brand-bg/85 backdrop-blur-sm rounded-full shadow-md text-brand-dark/60 hover:text-brand-orange hover:scale-105 transition-luxury"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleWishlist(prod.id);
+                      }}
+                      className="absolute top-4 right-4 p-2 bg-brand-bg/85 backdrop-blur-sm rounded-full shadow-md text-brand-dark/60 hover:text-brand-orange hover:scale-105 transition-luxury z-10"
                     >
                       <Heart
                         className={`w-4 h-4 ${isInWishlist(prod.id) ? "fill-brand-orange text-brand-orange" : ""}`}
                       />
                     </button>
+
+                    {/* Quick view hover indicator */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-2 bg-brand-bg/95 text-brand-dark hover:bg-brand-orange hover:text-brand-bg text-xs font-semibold uppercase tracking-wider rounded-lg shadow-md transition-luxury opacity-0 group-hover:opacity-100 z-10">
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>Quick View</span>
+                    </div>
                   </div>
 
                   {/* Body info */}
@@ -315,8 +335,11 @@ export default function Homepage() {
                     <span className="text-[10px] uppercase tracking-widest text-brand-orange font-semibold mb-2">
                       {prod.category}
                     </span>
-                    <h3 className="font-serif-luxury text-lg font-bold mb-2 group-hover:text-brand-green transition-colors">
-                      <Link href={`/product/${prod.id}`}>{prod.name}</Link>
+                    <h3 
+                      onClick={() => setQuickViewProduct(prod)}
+                      className="font-serif-luxury text-lg font-bold mb-2 group-hover:text-brand-green transition-colors cursor-pointer"
+                    >
+                      {prod.name}
                     </h3>
                     
                     {/* Stars */}
@@ -337,11 +360,24 @@ export default function Homepage() {
                     <div className="mt-auto flex items-center justify-between pt-4 border-t border-brand-dark/5">
                       <span className="text-lg font-bold text-brand-green">₹{prod.price}</span>
                       <button
-                        onClick={() => addToCart(prod.id)}
-                        className="flex items-center gap-1.5 px-4 py-2 bg-brand-green hover:bg-brand-green-hover text-brand-bg text-xs font-semibold uppercase tracking-wider rounded-lg transition-luxury"
+                        onClick={() => handleAddToCart(prod.id)}
+                        className={`flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg transition-luxury ${
+                          addedNotify === prod.id
+                            ? "bg-[#4ade80] text-brand-bg"
+                            : "bg-brand-green hover:bg-brand-green-hover text-brand-bg"
+                        }`}
                       >
-                        <ShoppingBag className="w-3.5 h-3.5" />
-                        <span>Add</span>
+                        {addedNotify === prod.id ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 animate-bounce" />
+                            <span>Added</span>
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingBag className="w-3.5 h-3.5" />
+                            <span>Add</span>
+                          </>
+                        )}
                       </button>
                     </div>
                   </div>
@@ -455,6 +491,158 @@ export default function Homepage() {
             </div>
           </section>
         )}
+        {/* QUICK VIEW MODAL OVERLAY */}
+        <AnimatePresence>
+          {quickViewProduct && (
+            <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4">
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setQuickViewProduct(null)}
+                className="absolute inset-0 bg-brand-dark/50 backdrop-blur-sm"
+              />
+              
+              {/* Modal Box */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 15 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 15 }}
+                transition={{ type: "spring", damping: 25, stiffness: 350 }}
+                className="bg-brand-bg rounded-2xl max-w-3xl w-full border border-brand-dark/10 overflow-hidden shadow-2xl relative max-h-[95vh] overflow-y-auto z-10"
+              >
+                {/* Close button */}
+                <button
+                  onClick={() => setQuickViewProduct(null)}
+                  className="absolute top-4 right-4 p-2 bg-brand-cream/80 hover:bg-brand-orange hover:text-brand-bg text-brand-dark rounded-full transition-all duration-300 z-10 cursor-pointer shadow-sm"
+                  aria-label="Close modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  
+                  {/* Product Photo panel */}
+                  <div className="relative aspect-square md:aspect-auto md:min-h-[420px] bg-gradient-to-br from-[#FAF6EE] to-[#F3EFE9] p-10 flex items-center justify-center overflow-hidden group">
+                    {/* Floating Category Badge */}
+                    <span className="absolute top-6 left-6 z-10 bg-brand-green text-brand-bg text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-sm">
+                      {quickViewProduct.category === "Oils" ? "🪵 Cold Pressed" : quickViewProduct.category === "Ghee" ? "🥛 Traditional A2" : "🍯 Raw Wild"}
+                    </span>
+                    
+                    <div className="relative w-64 h-64 sm:w-72 sm:h-72 transition-transform duration-700 ease-out group-hover:scale-105">
+                      <Image
+                        src={quickViewProduct.image}
+                        alt={quickViewProduct.name}
+                        fill
+                        className="object-contain"
+                        priority
+                      />
+                    </div>
+                  </div>
+
+                  {/* Product Info panel */}
+                  <div className="p-8 sm:p-10 space-y-6 flex flex-col justify-between bg-white text-brand-dark">
+                    <div className="space-y-4">
+                      <div>
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-brand-orange font-bold">
+                          {quickViewProduct.category} Collection
+                        </span>
+                        <h2 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-brand-green mt-1">
+                          {quickViewProduct.name}
+                        </h2>
+
+                        {/* Rating details */}
+                        <div className="flex items-center gap-2 mt-2.5">
+                          <div className="flex text-[#D4AF37]">
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                className={`w-3.5 h-3.5 ${
+                                  i < Math.floor(quickViewProduct.rating) ? "fill-brand-gold text-brand-gold" : "text-gray-300"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                          <span className="text-xs text-brand-dark/60">({quickViewProduct.reviewsCount})</span>
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-xs font-light text-brand-dark/80 leading-relaxed">
+                        {quickViewProduct.description}
+                      </p>
+
+                      {/* Benefits Tag chips */}
+                      <div className="space-y-2 pt-2">
+                        <span className="text-[10px] uppercase tracking-wider font-bold text-brand-dark/65 block">Key Benefits:</span>
+                        <div className="flex flex-wrap gap-2">
+                          {quickViewProduct.benefits.slice(0, 3).map((b, i) => (
+                            <span key={i} className="text-[10px] font-medium text-brand-green bg-brand-green/5 border border-brand-green/10 px-3 py-1 rounded-full">
+                              ✓ {b}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Pricing & Add to Cart */}
+                    <div className="pt-6 border-t border-brand-dark/5 space-y-4">
+                      <div className="flex items-end justify-between">
+                        <div>
+                          <span className="text-[9px] uppercase tracking-wider text-brand-dark/50 block">Harvest Price</span>
+                          <span className="text-3xl font-bold text-brand-green">₹{quickViewProduct.price}</span>
+                        </div>
+                        <div className="text-right text-xs text-brand-dark/65">
+                          <span>Inventory: </span>
+                          {quickViewProduct.stock > 0 ? (
+                            <span className="text-green-700 font-bold uppercase text-[10px]">{quickViewProduct.stock} Available</span>
+                          ) : (
+                            <span className="text-red-700 font-bold uppercase text-[10px]">Sold Out</span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex gap-3">
+                        <button
+                          disabled={quickViewProduct.stock === 0}
+                          onClick={() => handleAddToCart(quickViewProduct.id)}
+                          className={`flex-grow flex items-center justify-center gap-2 py-3.5 text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-md ${
+                            quickViewProduct.stock === 0
+                              ? "bg-brand-dark/15 text-brand-dark/45 cursor-not-allowed shadow-none"
+                              : addedNotify === quickViewProduct.id
+                              ? "bg-[#4ade80] text-brand-bg shadow-[#4ade80]/10"
+                              : "bg-brand-green hover:bg-brand-green-hover text-brand-bg hover:shadow-lg hover:shadow-brand-green/15 cursor-pointer"
+                          }`}
+                        >
+                          {addedNotify === quickViewProduct.id ? (
+                            <>
+                              <Check className="w-4 h-4 animate-bounce" />
+                              <span>Added to Cart</span>
+                            </>
+                          ) : (
+                            <>
+                              <ShoppingBag className="w-4 h-4" />
+                              <span>Add to Cart</span>
+                            </>
+                          )}
+                        </button>
+                        <Link
+                          href={`/product/${quickViewProduct.id}`}
+                          className="px-6 py-3.5 border border-brand-green/20 text-brand-green hover:bg-brand-cream rounded-xl text-xs font-bold uppercase tracking-widest text-center transition-colors shadow-sm"
+                        >
+                          Details
+                        </Link>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
 
       </div>
     </>

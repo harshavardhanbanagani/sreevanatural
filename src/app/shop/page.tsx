@@ -216,7 +216,10 @@ export default function ShopPage() {
                       className="bg-brand-cream border border-brand-dark/5 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-brand-dark/5 transition-luxury group flex flex-col h-full"
                     >
                       {/* Image container */}
-                      <div className="relative aspect-square w-full bg-brand-cream overflow-hidden">
+                      <div 
+                        onClick={() => setQuickViewProduct(prod)}
+                        className="relative aspect-square w-full bg-brand-cream overflow-hidden cursor-pointer"
+                      >
                         <Image
                           src={prod.image}
                           alt={prod.name}
@@ -225,7 +228,10 @@ export default function ShopPage() {
                         />
                         {/* Floating actions */}
                         <button
-                          onClick={() => toggleWishlist(prod.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleWishlist(prod.id);
+                          }}
                           className="absolute top-4 right-4 p-2 bg-brand-bg/85 backdrop-blur-sm rounded-full shadow-md text-brand-dark/60 hover:text-brand-orange hover:scale-105 transition-luxury z-10"
                         >
                           <Heart
@@ -233,14 +239,11 @@ export default function ShopPage() {
                           />
                         </button>
 
-                        {/* Quick view hover button */}
-                        <button
-                          onClick={() => setQuickViewProduct(prod)}
-                          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-2 bg-brand-bg/95 hover:bg-brand-orange hover:text-brand-bg text-xs font-semibold uppercase tracking-wider rounded-lg shadow-md transition-luxury opacity-0 group-hover:opacity-100 z-10"
-                        >
+                        {/* Quick view hover indicator */}
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-2 bg-brand-bg/95 hover:bg-brand-orange hover:text-brand-bg text-xs font-semibold uppercase tracking-wider rounded-lg shadow-md transition-luxury opacity-0 group-hover:opacity-100 z-10">
                           <Eye className="w-3.5 h-3.5" />
                           <span>Quick View</span>
-                        </button>
+                        </div>
                       </div>
 
                       {/* Content */}
@@ -248,8 +251,11 @@ export default function ShopPage() {
                         <span className="text-[10px] uppercase tracking-widest text-brand-orange font-semibold mb-1">
                           {prod.category}
                         </span>
-                        <h3 className="font-serif-luxury text-base font-bold mb-2 group-hover:text-brand-green transition-colors">
-                          <Link href={`/product/${prod.id}`}>{prod.name}</Link>
+                        <h3 
+                          onClick={() => setQuickViewProduct(prod)}
+                          className="font-serif-luxury text-base font-bold mb-2 group-hover:text-brand-green transition-colors cursor-pointer"
+                        >
+                          {prod.name}
                         </h3>
 
                         <div className="flex items-center gap-1 mb-4">
