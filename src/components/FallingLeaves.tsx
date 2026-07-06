@@ -46,7 +46,7 @@ export default function FallingLeaves() {
   }, []);
 
   return (
-    <div className="absolute inset-0 z-15 overflow-hidden pointer-events-none hidden md:block">
+    <div className="fixed inset-0 z-10 overflow-hidden pointer-events-none hidden md:block">
       {leaves.map((leaf) => (
         <motion.div
           key={leaf.id}

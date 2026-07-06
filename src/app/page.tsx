@@ -7,7 +7,6 @@ import Image from "next/image";
 import { useApp } from "@/context/AppContext";
 import { Heart, ShoppingBag, ArrowRight, ShieldCheck, Award, Leaf, Zap, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import FallingLeaves from "@/components/FallingLeaves";
 
 export default function Homepage() {
   const { products, addToCart, toggleWishlist, isInWishlist, reviews } = useApp();
@@ -126,9 +125,6 @@ export default function Homepage() {
             <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/25 to-transparent z-10 pointer-events-none" />
 
           </div>
-
-          {/* Dynamic wind-swayed falling leaf particle streams */}
-          <FallingLeaves />
 
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-xl text-left flex flex-col items-start">
