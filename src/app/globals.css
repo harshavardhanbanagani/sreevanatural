@@ -154,3 +154,10 @@ html[data-scroll-behavior="smooth"] {
   }
 }
 
+/* Custom Cursor CSS Overrides for Premium Desktop Experience */
+@media (min-width: 1024px) {
+  html, body, a, button, input, select, textarea, [role="button"], .cursor-pointer {
+    cursor: none !important;
+  }
+}
+

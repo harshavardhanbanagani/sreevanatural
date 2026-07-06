@@ -256,43 +256,6 @@ export default function Homepage() {
             </div>
           </div>
 
-          {/* Infinite Rotating Luxury Stamp Badge (Desktop only) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ 
-              opacity: 0.5, 
-              scale: 1,
-              rotate: 360 
-            }}
-            whileHover={{ opacity: 0.8 }}
-            transition={{
-              opacity: { delay: 1.1, duration: 1.0 },
-              scale: { delay: 1.1, duration: 1.0 },
-              rotate: { repeat: Infinity, duration: 25, ease: "linear" }
-            }}
-            className="absolute bottom-20 right-8 lg:right-16 z-25 hidden md:block select-none"
-          >
-            <div className="relative flex items-center justify-center">
-              {/* SVG Circular Text */}
-              <svg viewBox="0 0 100 100" className="w-28 h-28 select-none pointer-events-none">
-                <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
-                <text className="text-[8px] font-bold tracking-[0.16em] uppercase fill-[#FAF6EE] font-sans">
-                  <textPath href="#circlePath" startOffset="0%">
-                    • 100% pure & organic • traditional wood pressed
-                  </textPath>
-                </text>
-              </svg>
-              {/* Pulsing center gold leaf icon */}
-              <motion.div 
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
-                className="absolute p-3 bg-[#FAF6EE]/10 border border-[#FAF6EE]/20 rounded-full text-[#B86B2D]"
-              >
-                <Leaf className="w-4 h-4 fill-current" />
-              </motion.div>
-            </div>
-          </motion.div>
-
           {/* Bottom Inverted Organic Curve (Subtle & Flattened) */}
           <div className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none">
             <svg

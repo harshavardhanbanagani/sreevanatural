@@ -4,6 +4,7 @@ import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CustomCursor from "@/components/CustomCursor";
 import { usePathname } from "next/navigation";
 
 export default function RootLayout({
@@ -23,6 +24,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-brand-bg text-brand-dark">
         <AppProvider>
+          <CustomCursor />
           <Navbar />
           <main className="flex-grow">{children}</main>
           {!isAdmin && <Footer />}
