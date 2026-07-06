@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { useApp } from "@/context/AppContext";
@@ -10,9 +11,11 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Homepage() {
   const { products, addToCart, toggleWishlist, isInWishlist, reviews } = useApp();
   const [showSplash, setShowSplash] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   // Splash Screen auto-redirect after 800ms
   useEffect(() => {
+    setMounted(true);
     const timer = setTimeout(() => {
       setShowSplash(false);
     }, 800);
@@ -27,57 +30,60 @@ export default function Homepage() {
 
   return (
     <>
-      {/* SPLASH SCREEN */}
-      <AnimatePresence>
-        {showSplash && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.5, ease: "easeInOut" } }}
-            className="fixed inset-0 z-[999999] flex flex-col items-center justify-center bg-[radial-gradient(circle_at_center,rgba(253,251,247,1)_0%,rgba(244,240,230,1)_100%)] text-brand-dark px-4"
-          >
-            {/* Logo Cinematic Zoom Reveal */}
-            <div className="text-center">
-              <motion.div
-                initial={{ scale: 0.90, opacity: 0 }}
-                animate={{ scale: 1.02, opacity: 1 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-                className="relative w-72 h-24 sm:w-[450px] sm:h-[150px] mx-auto flex items-center justify-center"
-              >
-                <Image
-                  src="/logo.png"
-                  alt="Sreeva Naturals"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </motion.div>
-
-              {/* Minimal Loading Indicator */}
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "160px" }}
-                transition={{ delay: 0.1, duration: 0.6, ease: "easeInOut" }}
-                className="h-[1px] bg-brand-green/30 mx-auto mt-8 relative overflow-hidden"
-              >
-                <motion.div 
-                  initial={{ left: "-100%" }}
-                  animate={{ left: "100%" }}
-                  transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
-                  className="absolute inset-y-0 w-1/2 bg-brand-orange"
-                />
-              </motion.div>
-            </div>
-
-            {/* Minimal Enter / Skip Link */}
-            <button
-              onClick={() => setShowSplash(false)}
-              className="absolute bottom-12 text-[10px] font-bold uppercase tracking-[0.25em] text-brand-dark/40 hover:text-brand-orange transition-colors cursor-pointer"
+      {/* SPLASH SCREEN VIA PORTAL TO ABSOLUTELY COVER LAYOUT NAVBAR */}
+      {mounted && typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
+          {showSplash && (
+            <motion.div
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 0.5, ease: "easeInOut" } }}
+              className="fixed inset-0 z-[999999] flex flex-col items-center justify-center bg-[radial-gradient(circle_at_center,rgba(253,251,247,1)_0%,rgba(244,240,230,1)_100%)] text-brand-dark px-4"
             >
-              Enter Storefront
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {/* Logo Cinematic Zoom Reveal */}
+              <div className="text-center">
+                <motion.div
+                  initial={{ scale: 0.90, opacity: 0 }}
+                  animate={{ scale: 1.02, opacity: 1 }}
+                  transition={{ duration: 0.7, ease: "easeOut" }}
+                  className="relative w-72 h-24 sm:w-[450px] sm:h-[150px] mx-auto flex items-center justify-center"
+                >
+                  <Image
+                    src="/logo.png"
+                    alt="Sreeva Naturals"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </motion.div>
+
+                {/* Minimal Loading Indicator */}
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "160px" }}
+                  transition={{ delay: 0.1, duration: 0.6, ease: "easeInOut" }}
+                  className="h-[1px] bg-brand-green/30 mx-auto mt-8 relative overflow-hidden"
+                >
+                  <motion.div 
+                    initial={{ left: "-100%" }}
+                    animate={{ left: "100%" }}
+                    transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
+                    className="absolute inset-y-0 w-1/2 bg-brand-orange"
+                  />
+                </motion.div>
+              </div>
+
+              {/* Minimal Enter / Skip Link */}
+              <button
+                onClick={() => setShowSplash(false)}
+                className="absolute bottom-12 text-[10px] font-bold uppercase tracking-[0.25em] text-brand-dark/40 hover:text-brand-orange transition-colors cursor-pointer"
+              >
+                Enter Storefront
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
 
       {/* MAIN HOMEPAGE CONTENT */}
       <div className="relative overflow-hidden">
