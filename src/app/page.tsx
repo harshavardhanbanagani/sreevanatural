@@ -125,11 +125,10 @@ export default function Homepage() {
             {/* Subtle left gradient overlay just for typography readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/25 to-transparent z-10 pointer-events-none" />
 
-            {/* Dynamic wind-swayed falling leaf particle streams */}
-            <FallingLeaves />
           </div>
 
-
+          {/* Dynamic wind-swayed falling leaf particle streams */}
+          <FallingLeaves />
 
           <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-xl text-left flex flex-col items-start">
