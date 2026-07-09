@@ -110,7 +110,7 @@ export default function Homepage() {
                 src="/hero_bg.jpg"
                 alt="Sreeva Organic Farms"
                 fill
-                className="hidden sm:block object-cover object-center brightness-[0.85] contrast-[1.08] saturate-[1.12]"
+                className="hidden sm:block object-cover object-center brightness-[0.60] contrast-[1.08] saturate-[1.12]"
                 priority
               />
               {/* Portrait Image (Mobile) */}
@@ -118,13 +118,16 @@ export default function Homepage() {
                 src="/hero_mobile.jpg"
                 alt="Sreeva Organic Farms Mobile"
                 fill
-                className="block sm:hidden object-cover object-center brightness-[0.85] contrast-[1.08] saturate-[1.12]"
+                className="block sm:hidden object-cover object-center brightness-[0.60] contrast-[1.08] saturate-[1.12]"
                 priority
               />
             </motion.div>
 
             {/* Cinematic Golden Hour Sunlight Glow */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_15%,rgba(242,120,75,0.18)_0%,rgba(0,0,0,0)_60%)] z-10 pointer-events-none mix-blend-screen" />
+            
+            {/* Soft, highly transparent left gradient overlay for typography readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/70 via-brand-dark/20 to-transparent z-10 pointer-events-none" />
 
           </div>
 
@@ -134,7 +137,7 @@ export default function Homepage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
-                className="flex items-center gap-2 text-brand-orange uppercase tracking-[0.3em] text-[10px] sm:text-[11px] font-bold mb-4"
+                className="flex items-center gap-2 text-brand-orange uppercase tracking-[0.3em] text-[10px] sm:text-[11px] font-bold mb-4 drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]"
               >
                 <Leaf className="w-3.5 h-3.5 animate-pulse text-brand-orange" />
                 <span>100% Farm Direct & Wood-Pressed</span>
@@ -144,7 +147,7 @@ export default function Homepage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 1.0 }}
-                className="font-serif-luxury text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-wide mb-6"
+                className="font-serif-luxury text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-wide mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.65)]"
               >
                 Pure Tradition.<br />
                 <span className="italic text-brand-orange relative inline-block">
@@ -157,7 +160,7 @@ export default function Homepage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
-                className="text-xs sm:text-sm font-light text-brand-bg/85 leading-relaxed mb-8"
+                className="text-xs sm:text-sm font-light text-brand-bg/85 leading-relaxed mb-8 drop-shadow-[0_1.5px_4px_rgba(0,0,0,0.65)]"
               >
                 Handcrafted wellness extracts from native soil. Sourced directly from our organic farms and extracted using traditional wood-pressing methods to preserve molecular purity and natural health-giving enzymes.
               </motion.p>
