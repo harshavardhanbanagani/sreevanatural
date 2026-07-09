@@ -125,12 +125,6 @@ export default function Homepage() {
 
             {/* Cinematic Golden Hour Sunlight Glow */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_15%,rgba(242,120,75,0.18)_0%,rgba(0,0,0,0)_60%)] z-10 pointer-events-none mix-blend-screen" />
-            
-            {/* Soft Edge Film Vignette */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_50%,rgba(0,0,0,0.45)_100%)] z-10 pointer-events-none mix-blend-multiply" />
-            
-            {/* Subtle left gradient overlay just for typography readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/25 to-transparent z-10 pointer-events-none" />
 
           </div>
 
